@@ -11,3 +11,5 @@ The results should be stored in `tables`, `results`, `figs`. The table values sh
 
 # System requirements
 This repository was tested under Fedora Workstation 40, a 64-bit Linux operating system, with Julia `v1.10.4`. The file paths involving slash were done using `/`, which is designed for Linux. You might need to change all instances of `/` to `\` for file paths when you're on a Windows machine.
+
+Alternatively, use Windows subsystem for Linux or virtual machines to run Linux under non-Linux operating systems.
