@@ -1,0 +1,20 @@
+{
+    "half_max_size_S": 50,
+    "a_lb": 0.001,
+    "data_dir": "data/images/kodak/",
+    "bilateral_filter_sigma_r": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+    ],
+    "noise_variance": 0.001,
+    "aggregate_option": "sum",
+    "N_initials_kappa": 100,
+    "local_radius": 6,
+    "a_ub": 1,
+    "f_calls_limit": 1000,
+    "N_initials_a": 100
+}
