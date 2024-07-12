@@ -166,7 +166,7 @@ layout = PLY.Config(
 )
 v = plot_data
 ph = PLY.Plot(v, layout);
-PLY.save(ph, "fig_output/southern_ca_rainfall.html")
+PLY.save(ph, "figs/rainfall/southern_ca_rainfall.html")
 
 import PlotlyKaleido
 
@@ -174,13 +174,13 @@ PlotlyKaleido.start()
 (;data, layout, config) = ph
 PlotlyKaleido.savefig(
     ph,
-    "fig_output/southern_ca_rainfall.svg";
+    "figs/rainfall/southern_ca_rainfall.svg";
     width = width,
     height = height,
 )
 PlotlyKaleido.savefig(
     ph,
-    "fig_output/southern_ca_rainfall.png";
+    "figs/rainfall/southern_ca_rainfall.png";
     width = width,
     height = height,
 )

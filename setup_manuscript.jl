@@ -1,10 +1,9 @@
 
 # First, navigate to the julia_scripts folder, then run in Bash shell:
-# bash hopt.sh
+# bash rainfall.sh
 # bash kodak.sh
 # Then navigate to this directory and run this script in Julia REPL.
 
-do_not_display_figures = true # set to false to have PythonPlot.jl show figures when you run this script.
 
 using Pkg
 Pkg.activate(".")
@@ -39,12 +38,6 @@ using Markdown, Tables, MarkdownTables, FileIO, Serialization, DelimitedFiles
 include("helpers/image.jl");
 
 T = Float64;
-
-# All generated files from this script goes in this folder:
-save_folder = "results/manuscript_tmp_files/"
-if !ispath(save_folder)
-    mkpath(save_folder)
-end
 
 # # Set up for figures for one-hop operators
 
@@ -112,8 +105,6 @@ fig_size = VIZ.getaspectratio(size(im_y)) .* 4
 dpi = 300
 #dpi = 96
 
-
-
 fig_num = VIZ.plotmeshgrid2D(
     PLT,
     collect(Xrs_close),
@@ -130,8 +121,7 @@ fig_num = VIZ.plotmeshgrid2D(
     dpi = dpi,
     color_bar_shrink = 0.6,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/x_close.png")
+PLT.savefig("figs/manuscript/x_close.png")
 
 fig_num = VIZ.plotmeshgrid2D(
     PLT,
@@ -148,8 +138,7 @@ fig_num = VIZ.plotmeshgrid2D(
     color_bar_shrink = 0.6,
     vmin = 0,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/Ax_close.png")
+PLT.savefig("figs/manuscript/Ax_close.png")
 
 fig_num = VIZ.plotmeshgrid2D(
     PLT,
@@ -167,8 +156,7 @@ fig_num = VIZ.plotmeshgrid2D(
     vmin = 0,
     vmax = 1,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/Anx_post_close.png")
+PLT.savefig("figs/manuscript/Anx_post_close.png")
 
 fig_num = VIZ.plotmeshgrid2D(
     PLT,
@@ -186,8 +174,7 @@ fig_num = VIZ.plotmeshgrid2D(
     vmin = 0,
     vmax = 1,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/Anx_pre_close.png")
+PLT.savefig("figs/manuscript/Anx_pre_close.png")
 
 fig_num = VIZ.plotmeshgrid2D(
     PLT,
@@ -204,8 +191,7 @@ fig_num = VIZ.plotmeshgrid2D(
     color_bar_shrink = 0.6,
     symmetric_color_range = true,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/W_rz_close.png")
+PLT.savefig("figs/manuscript/W_rz_close.png")
 
 fig_num = VIZ.plotmeshgrid2D(
     PLT,
@@ -222,8 +208,7 @@ fig_num = VIZ.plotmeshgrid2D(
     color_bar_shrink = 0.6,
     symmetric_color_range = true,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/Lx_close.png")
+PLT.savefig("figs/manuscript/Lx_close.png")
 
 fig_num = VIZ.plotmeshgrid2D(
     PLT,
@@ -240,8 +225,7 @@ fig_num = VIZ.plotmeshgrid2D(
     color_bar_shrink = 0.6,
     symmetric_color_range = true,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/Lnx_close.png")
+PLT.savefig("figs/manuscript/Lnx_close.png")
 
 fig_num = VIZ.plotmeshgrid2D(
     PLT,
@@ -258,8 +242,7 @@ fig_num = VIZ.plotmeshgrid2D(
     color_bar_shrink = 0.6,
     symmetric_color_range = true,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/Tx_close.png")
+PLT.savefig("figs/manuscript/Tx_close.png")
 
 # # Bernstein basis figure
 
@@ -271,8 +254,7 @@ fig_num = visualizebernsteinbasis(
     fig_size = (5,2), dpi = 300, title_string = "Bernstein polynomial basis of degree $Bernstein_degree"
 )
 PLT.subplots_adjust(right=0.75) # need to do this otherwise PLT.savefig() cuts off the  legend text.
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/bernstein_basis.png", dpi = 300, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/bernstein_basis.png", dpi = 300, bbox_inches = "tight")
 
 # # S-map figure
 
@@ -303,8 +285,7 @@ PLT.plot(u_range, g.(u_range))
 PLT.xlabel("τ")
 PLT.ylabel("ξ(τ)")
 #PLT.title("Adjustment map")
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/s_map.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/s_map.png", dpi = dpi, bbox_inches = "tight")
 
 
 # # fig-warp-compare
@@ -387,8 +368,7 @@ fig_num = VIZ.plotmeshgrid2D(
     fig_size =fig_size = fig_size,
     dpi = dpi,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/fig-warp-compare-image_data.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/fig-warp-compare-image_data.png", dpi = dpi, bbox_inches = "tight")
 
 fig_num = VIZ.plotmeshgrid2D(
     PLT,
@@ -407,8 +387,7 @@ fig_num = VIZ.plotmeshgrid2D(
     fig_size = fig_size,
     dpi = dpi,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/fig-warp-compare-HRWT.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/fig-warp-compare-HRWT.png", dpi = dpi, bbox_inches = "tight")
 
 fig_num = VIZ.plotmeshgrid2D(
     PLT,
@@ -427,8 +406,7 @@ fig_num = VIZ.plotmeshgrid2D(
     fig_size = fig_size,
     dpi = dpi,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/fig-warp-compare-bernstein_filtering.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/fig-warp-compare-bernstein_filtering.png", dpi = dpi, bbox_inches = "tight")
 
 # # Table for the rainfall dataset
 
@@ -534,8 +512,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
 )
 PLT.gca().invert_yaxis()
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/rainfall_DE_mean.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/rainfall_DE_mean.png", dpi = dpi, bbox_inches = "tight")
 
 fig_num = VIZ.plotmeshgrid2D(
     PLT,
@@ -551,8 +528,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
 )
 PLT.gca().invert_yaxis()
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/rainfall_DE_variance.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/rainfall_DE_variance.png", dpi = dpi, bbox_inches = "tight")
 
 fig_num = VIZ.plotmeshgrid2D(
     PLT,
@@ -571,8 +547,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
 )
 PLT.gca().invert_yaxis()
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/rainfall_sqexp_mean.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/rainfall_sqexp_mean.png", dpi = dpi, bbox_inches = "tight")
 
 fig_num = VIZ.plotmeshgrid2D(
     PLT,
@@ -588,8 +563,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
 )
 PLT.gca().invert_yaxis()
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/rainfall_sqexp_variance.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/rainfall_sqexp_variance.png", dpi = dpi, bbox_inches = "tight")
 
 # ck
 fig_num = VIZ.plotmeshgrid2D(
@@ -609,8 +583,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
 )
 PLT.gca().invert_yaxis()
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/rainfall_canonical_mean.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/rainfall_canonical_mean.png", dpi = dpi, bbox_inches = "tight")
 
 fig_num = VIZ.plotmeshgrid2D(
     PLT,
@@ -626,8 +599,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
 )
 PLT.gca().invert_yaxis()
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/rainfall_canonical_variance.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/rainfall_canonical_variance.png", dpi = dpi, bbox_inches = "tight")
 
 # # Hat figure
 
@@ -688,8 +660,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     display_color_bar = false,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/hat_reference.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/hat_reference.png", dpi = dpi, bbox_inches = "tight")
 
 # DEK - mean.
 fig_num = VIZ.plotmeshgrid2D(
@@ -708,8 +679,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     display_color_bar = false,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/hat_DE_mean.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/hat_DE_mean.png", dpi = dpi, bbox_inches = "tight")
 
 # bi-cubic interpolation.
 fig_num = VIZ.plotmeshgrid2D(
@@ -728,8 +698,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     display_color_bar = false,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/hat_spline_itp.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/hat_spline_itp.png", dpi = dpi, bbox_inches = "tight")
 
 # CK mean.
 fig_num = VIZ.plotmeshgrid2D(
@@ -748,8 +717,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     display_color_bar = false,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/hat_canonical_mean.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/hat_canonical_mean.png", dpi = dpi, bbox_inches = "tight")
 
 # # Parrot figure
 
@@ -809,8 +777,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     display_color_bar = false,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/parrot_reference.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/parrot_reference.png", dpi = dpi, bbox_inches = "tight")
 
 # DEK - mean.
 fig_num = VIZ.plotmeshgrid2D(
@@ -829,8 +796,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     display_color_bar = false,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/parrot_DE_mean.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/parrot_DE_mean.png", dpi = dpi, bbox_inches = "tight")
 
 # bi-cubic interpolation.
 fig_num = VIZ.plotmeshgrid2D(
@@ -849,8 +815,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     display_color_bar = false,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/parrot_spline_itp.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/parrot_spline_itp.png", dpi = dpi, bbox_inches = "tight")
 
 # CK mean.
 fig_num = VIZ.plotmeshgrid2D(
@@ -869,8 +834,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     display_color_bar = false,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/parrot_canonical_mean.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/parrot_canonical_mean.png", dpi = dpi, bbox_inches = "tight")
 
 # # Helmet figure
 
@@ -930,8 +894,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     display_color_bar = false,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/helmet_reference.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/helmet_reference.png", dpi = dpi, bbox_inches = "tight")
 
 # DEK - mean.
 fig_num = VIZ.plotmeshgrid2D(
@@ -950,8 +913,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     display_color_bar = false,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/helmet_DE_mean.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/helmet_DE_mean.png", dpi = dpi, bbox_inches = "tight")
 
 # bi-cubic interpolation.
 fig_num = VIZ.plotmeshgrid2D(
@@ -970,8 +932,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     display_color_bar = false,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/helmet_spline_itp.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/helmet_spline_itp.png", dpi = dpi, bbox_inches = "tight")
 
 # CK mean.
 fig_num = VIZ.plotmeshgrid2D(
@@ -990,8 +951,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     display_color_bar = false,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/helmet_canonical_mean.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/helmet_canonical_mean.png", dpi = dpi, bbox_inches = "tight")
 
 
 
@@ -1002,13 +962,16 @@ include("helpers/kodak_tables.jl")
 rs = 1:6
 down_factor = 2
 
-# run kodak_results.jl first.
-hps, SSIMs_itp, SSIMs_sk, SSIMs_deks = deserialize("results/kodak_down2_ML")
-hp_mat = generate_hp_table(hps; sig_digits = 3)
+# load CSV
+hp_mat_floats = readdlm("tables/kodak_hp.csv", ',', Float64)
+hp_mat = string.(hp_mat_floats)
 
-# save to CSV.
-writedlm( "tables/kodak_hp.csv",  hp_mat, ',')
+SSIMs_itp = readdlm("tables/ssim_itp.csv", ',', Float64)
+SSIMs_sk = readdlm( "tables/ssim_sk.csv", ',', Float64)
+tmp = reshape(readdlm("tables/ssim_de.csv", ',', Float64), 6, 24)
+SSIMs_deks = collect( v for v in eachcol(tmp) )
 
+# Construct the kodak data set hyperparameters table
 scene_names = get_scene_names()
 
 DEK_hp_header = collect(
@@ -1029,9 +992,6 @@ SSIM_mat = generate_SSIM_table(
     SSIMs_itp, SSIMs_sk, SSIMs_deks;
     sig_digits = 5
 )
-writedlm( "tables/ssim_itp.csv",  SSIMs_itp, ',')
-writedlm( "tables/ssim_sk.csv",  SSIMs_sk, ',')
-writedlm( "tables/ssim_de.csv",  collect(Iterators.flatten(SSIMs_deks)), ',') # `SSIMs_deks` is a nested Vector. Flatten to 1-D array before storing as CSV.
 
 DEK_r_header = collect(
     "DE r: $r" for r in rs
@@ -1067,8 +1027,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     color_bar_shrink = 0.7,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/variance_hat_DE.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/variance_hat_DE.png", dpi = dpi, bbox_inches = "tight")
 
 # CK variance. hat.
 fig_num = VIZ.plotmeshgrid2D(
@@ -1087,8 +1046,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     color_bar_shrink = 0.7,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/variance_hat_canonical.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/variance_hat_canonical.png", dpi = dpi, bbox_inches = "tight")
 
 # DEK variance. bird.
 fig_num = VIZ.plotmeshgrid2D(
@@ -1107,8 +1065,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     color_bar_shrink = 0.7,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/variance_parrot_DE.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/variance_parrot_DE.png", dpi = dpi, bbox_inches = "tight")
 
 # CK variance. bird.
 fig_num = VIZ.plotmeshgrid2D(
@@ -1127,8 +1084,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     color_bar_shrink = 0.7,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/variance_parrot_canonical.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/variance_parrot_canonical.png", dpi = dpi, bbox_inches = "tight")
 
 # DEK variance. helmet.
 fig_num = VIZ.plotmeshgrid2D(
@@ -1147,8 +1103,7 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     color_bar_shrink = 0.7,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/variance_helmet_DE.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/variance_helmet_DE.png", dpi = dpi, bbox_inches = "tight")
 
 # CK variance. helmet.
 fig_num = VIZ.plotmeshgrid2D(
@@ -1167,7 +1122,6 @@ fig_num = VIZ.plotmeshgrid2D(
     matrix_mode = true,
     color_bar_shrink = 0.7,
 )
-do_not_display_figures || PLT.show()
-PLT.savefig("figs/variance_helmet_canonical.png", dpi = dpi, bbox_inches = "tight")
+PLT.savefig("figs/manuscript/variance_helmet_canonical.png", dpi = dpi, bbox_inches = "tight")
 
 nothing

@@ -119,7 +119,7 @@ push!(v, nodes_trace)
 ph = PLY.Plot(v, layout);
 
 # # save.
-PLY.save(ph, "fig_output/axis_graph_$(η)_$(tag).html")
+PLY.save(ph, "figs/axis/axis_graph_$(η)_$(tag).html")
 
 import PlotlyKaleido
 
@@ -127,13 +127,13 @@ PlotlyKaleido.start()
 (;data, layout, config) = ph
 PlotlyKaleido.savefig(
     ph,
-    "fig_output/axis_graph_$(η)_$(tag).svg";
+    "figs/axis/axis_graph_$(η)_$(tag).svg";
     width = width,
     height = height,
 )
 PlotlyKaleido.savefig(
     ph,
-    "fig_output/axis_graph_$(η)_$(tag).png";
+    "figs/axis/axis_graph_$(η)_$(tag).png";
     width = width,
     height = height,
 )
