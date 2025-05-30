@@ -1,4 +1,3 @@
-
 # First, navigate to the julia_scripts folder, then run in Bash shell:
 # bash rainfall.sh
 # bash kodak.sh
@@ -9,8 +8,10 @@ using Pkg
 Pkg.activate(".")
 Pkg.Registry.add(RegistrySpec(url = "https://github.com/RoyCCWang/RWPublicJuliaRegistry"))
 let
-    pkgs = ["JSON3", "LazyGPR", "SpatialGSP", "Interpolations", "ScatteredInterpolation", "PythonPlot", "Revise", "IJulia", "Images", "RieszDSP", "LocalFilters", "VisualizationBag", "StaticArrays",
-    "Markdown", "Tables", "MarkdownTables", "FileIO"]
+    pkgs = [
+        "JSON3", "LazyGPR", "SpatialGSP", "Interpolations", "ScatteredInterpolation", "PythonPlot", "Revise", "IJulia", "Images", "RieszDSP", "LocalFilters", "VisualizationBag", "StaticArrays",
+        "Markdown", "Tables", "MarkdownTables", "FileIO",
+    ]
     for pkg in pkgs
         if Base.find_package(pkg) === nothing
             Pkg.add(pkg)
@@ -50,7 +51,7 @@ x_nD, x_ranges = image2samples(img)
 sz_x = size(x_nD)
 
 # name image data.
-Xrs = (1:size(x_nD,1), 1:size(x_nD,2))
+Xrs = (1:size(x_nD, 1), 1:size(x_nD, 2))
 im_y = x_nD
 x = vec(x_nD)
 
@@ -69,13 +70,13 @@ Ln = GSP.create_snlaplacian(T, G)
 TL = GSP.create_rwlaplacian(T, G)
 
 # apply operators to signal.
-Ax = A*x # adjacency
-Anx_pre = deg_inv*A*x
-Anx_post = A*deg_inv*x
-Lx = L*x # combinatorial Laplacian.
-Qx = deg\(A*x) # random-walk operator, inv(deg)*A*x.
+Ax = A * x # adjacency
+Anx_pre = deg_inv * A * x
+Anx_post = A * deg_inv * x
+Lx = L * x # combinatorial Laplacian.
+Qx = deg \ (A * x) # random-walk operator, inv(deg)*A*x.
 Tx = x - Qx # random-walk Laplacian, T = I - Q.
-Ln_x = Ln*x
+Ln_x = Ln * x
 
 # Riesz warp samples.
 W_rz = LGP.create_grid_warp_samples(LGP.UseRieszDSP(RZ), im_y)
@@ -84,8 +85,8 @@ W_rz = LGP.create_grid_warp_samples(LGP.UseRieszDSP(RZ), im_y)
 function getcloseup(Xrs, Y, w, h)
     # Y_out = Y[end-h:end, 220:220+w]
     # Xrs_out = (Xrs[begin][end-h:end], Xrs[end][220:220+w])
-    Y_out = Y[begin:begin+h, begin:begin+w]
-    Xrs_out = (Xrs[begin][begin:begin+h], Xrs[end][begin:begin+w])
+    Y_out = Y[begin:(begin + h), begin:(begin + w)]
+    Xrs_out = (Xrs[begin][begin:(begin + h)], Xrs[end][begin:(begin + w)])
     return Xrs_out, Y_out
 end
 
@@ -251,9 +252,9 @@ include("helpers/misc.jl")
 Bernstein_degree = 5
 fig_num = visualizebernsteinbasis(
     one(T), Bernstein_degree, fig_num;
-    fig_size = (5,2), dpi = 300, title_string = "Bernstein polynomial basis of degree $Bernstein_degree"
+    fig_size = (5, 2), dpi = 300, title_string = "Bernstein polynomial basis of degree $Bernstein_degree"
 )
-PLT.subplots_adjust(right=0.75) # need to do this otherwise PLT.savefig() cuts off the  legend text.
+PLT.subplots_adjust(right = 0.75) # need to do this otherwise PLT.savefig() cuts off the  legend text.
 PLT.savefig("figs/manuscript/bernstein_basis.png", dpi = 300, bbox_inches = "tight")
 
 # # S-map figure
@@ -268,13 +269,13 @@ L = M # must be an even positive integer. The larger the flatter.
 if isodd(L)
     L = L + 1
 end
-x0, y0 = convert(T, 0.8*M), 1 + convert(T, 0.5)
+x0, y0 = convert(T, 0.8 * M), 1 + convert(T, 0.5)
 s = LGP.AdjustmentMap(x0, y0, b_x, L)
 
 # plot.
 viz_bound = 0.9
-u_range = LinRange(0, viz_bound*M, 1000)
-g = uu->LGP.evalsmap(uu, s)
+u_range = LinRange(0, viz_bound * M, 1000)
+g = uu -> LGP.evalsmap(uu, s)
 
 #@assert abs(g(x0)-y0) < eps(T)*100
 #@show s, propertynames(s)
@@ -298,22 +299,22 @@ x_nD, x_ranges = image2samples(img)
 sz_x = size(x_nD)
 
 # name image data.
-Xrs = (1:size(x_nD,1), 1:size(x_nD,2))
+Xrs = (1:size(x_nD, 1), 1:size(x_nD, 2))
 im_y = x_nD
 
 # Warp samples from RieszDSP.jl
 W_rz = LGP.create_grid_warp_samples(LGP.UseRieszDSP(RZ), im_y)
 sigma_r_factor = 4
-σr = maximum(abs.(W_rz))*sigma_r_factor
+σr = maximum(abs.(W_rz)) * sigma_r_factor
 σs = 1.0
 if σr > 0 && σs > 0
     W_rz = LocalFilters.bilateralfilter(
-        W_rz, σr, σs, 2*round(Int,3*σs)+1,
+        W_rz, σr, σs, 2 * round(Int, 3 * σs) + 1,
     )
 end
 
 # Bernstein filtering, k-nn graph.
-knn_config = GSP.KNNConfig{T}(k = 2*D)
+knn_config = GSP.KNNConfig{T}(k = 2 * D)
 warp_config = GSP.WarpConfig{T}(aggregate_option = :sum)
 X = collect(
     SVector{D, T}(x) for x in Iterators.product(Xrs...)
@@ -324,10 +325,10 @@ W_knn_vec = LGP.create_warp_samples(
     vec(X), vec(im_y), knn_config, warp_config,
 )
 W_knn = reshape(W_knn_vec, size(im_y))
-σr = maximum(abs.(W_knn))*sigma_r_factor
+σr = maximum(abs.(W_knn)) * sigma_r_factor
 if σr > 0 && σs > 0
     W_knn = LocalFilters.bilateralfilter(
-        W_knn, σr, σs, 2*round(Int,3*σs)+1,
+        W_knn, σr, σs, 2 * round(Int, 3 * σs) + 1,
     )
 end
 
@@ -339,7 +340,7 @@ W_grid = LGP.create_grid_warp_samples(
 )
 if σr > 0 && σs > 0
     W_grid = LocalFilters.bilateralfilter(
-        W_grid, σr, σs, 2*round(Int,3*σs)+1,
+        W_grid, σr, σs, 2 * round(Int, 3 * σs) + 1,
     )
 end
 
@@ -365,7 +366,7 @@ fig_num = VIZ.plotmeshgrid2D(
     vertical_title = "",
     matrix_mode = true,
     color_bar_shrink = 0.7,
-    fig_size =fig_size = fig_size,
+    fig_size = fig_size = fig_size,
     dpi = dpi,
 )
 PLT.savefig("figs/manuscript/fig-warp-compare-image_data.png", dpi = dpi, bbox_inches = "tight")
@@ -447,9 +448,9 @@ max_sk, min_sk = round(maximum(mqs_sk), sigdigits = sig_digits), round(minimum(m
     dek_vars, dek_star,
     sk_vars, sk_star,
 ) = deserialize(
-    joinpath(load_results_dir, "CA_rainfall_hp_$(tag)"),  
+    joinpath(load_results_dir, "CA_rainfall_hp_$(tag)"),
 )
-a2s = aa->sqrt(1/(2*aa)) # a := 1/(2*s^2), solve for s.
+a2s = aa -> sqrt(1 / (2 * aa)) # a := 1/(2*s^2), solve for s.
 bandwidth_can, κ = round(a2s(dek_vars[begin]), sigdigits = sig_digits), round(dek_vars[end], sigdigits = sig_digits)
 bandwidth_sk = round(a2s(sk_vars[begin]), sigdigits = sig_digits)
 
@@ -465,16 +466,20 @@ data_mat = [
     "Minimum queried mean" min_dek min_sk min_ck y_min;
     "Maximum queried mean" max_dek max_sk max_ck y_max;
 ];
-print(markdown_table(Tables.table(
-    data_mat;
-    header = [
-        "";
-        "DE kernel";
-        "Stationary kernel";
-        "Canonical kernel";
-        "Rainfall data";
-    ]
-), String))
+print(
+    markdown_table(
+        Tables.table(
+            data_mat;
+            header = [
+                "";
+                "DE kernel";
+                "Stationary kernel";
+                "Canonical kernel";
+                "Rainfall data";
+            ]
+        ), String
+    )
+)
 
 # # Figure for the rainfall dataset
 
@@ -954,7 +959,6 @@ fig_num = VIZ.plotmeshgrid2D(
 PLT.savefig("figs/manuscript/helmet_canonical_mean.png", dpi = dpi, bbox_inches = "tight")
 
 
-
 # # Table - Kodak dataset, hyperparameters
 
 
@@ -967,9 +971,9 @@ hp_mat_floats = readdlm("tables/kodak_hp.csv", ',', Float64)
 hp_mat = string.(hp_mat_floats)
 
 SSIMs_itp = readdlm("tables/ssim_itp.csv", ',', Float64)
-SSIMs_sk = readdlm( "tables/ssim_sk.csv", ',', Float64)
+SSIMs_sk = readdlm("tables/ssim_sk.csv", ',', Float64)
 tmp = reshape(readdlm("tables/ssim_de.csv", ',', Float64), 6, 24)
-SSIMs_deks = collect( v for v in eachcol(tmp) )
+SSIMs_deks = collect(v for v in eachcol(tmp))
 
 # Construct the kodak data set hyperparameters table
 scene_names = get_scene_names()
@@ -977,12 +981,16 @@ scene_names = get_scene_names()
 DEK_hp_header = collect(
     "Gain, r: $r" for r in rs
 )
-print(markdown_table(Tables.table(
-    [scene_names hp_mat];
-    header = [
-        "Scene"; "Scale"; DEK_hp_header;
-    ]
-), String))
+print(
+    markdown_table(
+        Tables.table(
+            [scene_names hp_mat];
+            header = [
+                "Scene"; "Scale"; DEK_hp_header;
+            ]
+        ), String
+    )
+)
 
 # # table SSIM
 
@@ -998,15 +1006,19 @@ DEK_r_header = collect(
 )
 
 data_mat = [
-    scene_names SSIM_mat
+scene_names SSIM_mat
 ];
 
-print(markdown_table(Tables.table(
-    data_mat;
-    header = [
-        "Scene"; "Bi-cubic"; "CK"; DEK_r_header;
-    ]
-), String))
+print(
+    markdown_table(
+        Tables.table(
+            data_mat;
+            header = [
+                "Scene"; "Bi-cubic"; "CK"; DEK_r_header;
+            ]
+        ), String
+    )
+)
 
 # # Figure - Kodak images variance
 
@@ -1123,5 +1135,7 @@ fig_num = VIZ.plotmeshgrid2D(
     color_bar_shrink = 0.7,
 )
 PLT.savefig("figs/manuscript/variance_helmet_canonical.png", dpi = dpi, bbox_inches = "tight")
+
+include("patchwork_kriging.jl")
 
 nothing

@@ -1,0 +1,6 @@
+[deps]
+BSON = "fbb218c0-5317-5bc6-957e-2ee96dd4b1f0"
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
+LazyGPR = "b41d7b93-16fb-427a-b53b-75fbbf0d305b"
+RKHSRegularization = "da5e2df6-2169-4d6c-a246-0eaf9ec197ca"
+SingleLinkagePartitions = "f8439c9b-f421-4171-88a6-2fea72ebf919"
