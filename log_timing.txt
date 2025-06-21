@@ -1,0 +1,965 @@
+
+down_factor = 2
+Lazy query: stationary kernel, mean and variance:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  49.010 μs …  2.631 ms  ┊ GC (min … max): 0.00% … 96.22%
+ Time  (median):     50.190 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   53.098 μs ± 43.611 μs  ┊ GC (mean ± σ):  1.66% ±  2.12%
+
+   ▂▆█▇▆▄▃▁   ▁▁▂▁          ▂▃▄▃▃▃▄▃▃▂▁                       ▂
+  ▅█████████▇██████▆▆▆▅▅▄▂▅▇█████████████▇▆▇▆▇▇▆▅▅▄▃▄▅▄▂▂▄▃▃▅ █
+  49 μs        Histogram: log(frequency) by time      64.5 μs <
+
+ Memory estimate: 66.61 KiB, allocs estimate: 27.
+Lazy query: stationary kernel, mean-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  47.120 μs …  1.375 ms  ┊ GC (min … max): 0.00% … 91.17%
+ Time  (median):     48.210 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   50.377 μs ± 23.198 μs  ┊ GC (mean ± σ):  0.95% ±  2.03%
+
+     ▆█▄                                                       
+  ▁▂▇████▆▄▃▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▂▂▂▂▂▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁ ▂
+  47.1 μs         Histogram: frequency by time        58.3 μs <
+
+ Memory estimate: 66.61 KiB, allocs estimate: 27.
+Lazy query: stationary kernel, variance-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  46.490 μs …  1.380 ms  ┊ GC (min … max): 0.00% … 92.67%
+ Time  (median):     47.630 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   48.412 μs ± 24.264 μs  ┊ GC (mean ± σ):  1.07% ±  2.06%
+
+          ▂▄▇▆█▇▅▂                                             
+  ▁▁▁▂▂▃▅██████████▆▅▄▄▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁ ▃
+  46.5 μs         Histogram: frequency by time        51.7 μs <
+
+ Memory estimate: 66.61 KiB, allocs estimate: 27.
+
+(sigma_r_factor, σr) = (3.0, 2.1187538116042868)
+Lazy query: DE kernel, setup cache:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  425.589 μs …  1.805 ms  ┊ GC (min … max): 0.00% … 75.53%
+ Time  (median):     428.310 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   430.870 μs ± 29.871 μs  ┊ GC (mean ± σ):  0.33% ±  2.81%
+
+   ▁ ▅▇█▇▆▄▆▇▇▆▅▃▁▁                                            ▂
+  ▅█▇██████████████▇▆▅▇▆▅▆▅▄▅▄▄▄▃▅▅▇▇▇▇▇▇█▇▇▇▇▆▇▄▅▄▃▅▇▅▅▆▆▆▇▆▆ █
+  426 μs        Histogram: log(frequency) by time       447 μs <
+
+ Memory estimate: 78.04 KiB, allocs estimate: 4.
+Lazy query: DE kernel, mean and variance:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  50.410 μs …  1.715 ms  ┊ GC (min … max): 0.00% … 95.68%
+ Time  (median):     51.420 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   52.446 μs ± 30.352 μs  ┊ GC (mean ± σ):  1.24% ±  2.10%
+
+   ▂▅▇███▇▇▆▅▅▄▃▂▁▁▁  ▁▁▁▂▁▁▁                                 ▃
+  ▇████████████████████████████▇██▆▅▅▅▄▃▃▃▅▁▁▅▅▃▃▃▅▃▄▃▄▆▄▅▅▅▅ █
+  50.4 μs      Histogram: log(frequency) by time      59.6 μs <
+
+ Memory estimate: 74.13 KiB, allocs estimate: 47.
+Lazy query: DE kernel, mean-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  47.700 μs …  1.890 ms  ┊ GC (min … max): 0.00% … 95.31%
+ Time  (median):     49.090 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   50.105 μs ± 33.210 μs  ┊ GC (mean ± σ):  1.39% ±  2.08%
+
+            ▂▆███▅▃▂▁                                          
+  ▁▁▁▁▁▂▂▄▅▇█████████▇▆▅▅▄▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▂▂▁▁▁▁▁▁▁▁▁▁▁ ▃
+  47.7 μs         Histogram: frequency by time        53.2 μs <
+
+ Memory estimate: 74.13 KiB, allocs estimate: 47.
+Lazy query: DE kernel, variance-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  48.280 μs …  1.725 ms  ┊ GC (min … max): 0.00% … 95.19%
+ Time  (median):     49.270 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   50.190 μs ± 30.738 μs  ┊ GC (mean ± σ):  1.30% ±  2.07%
+
+        ▂▄█▇█▆▅▅▃▁                                             
+  ▁▁▂▂▄▆██████████▆▆▅▅▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▁▂▁▂▁▁▁▁▁▁▁▁▁▁ ▃
+  48.3 μs         Histogram: frequency by time        53.3 μs <
+
+ Memory estimate: 74.13 KiB, allocs estimate: 47.
+
+Bi-cubic interpolation, setup:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  139.860 μs …  1.633 ms  ┊ GC (min … max): 0.00% … 90.01%
+ Time  (median):     143.030 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   151.538 μs ± 61.467 μs  ┊ GC (mean ± σ):  4.75% ±  9.25%
+
+  █▅                                                           ▁
+  ██▇██▇▆▄▃▁▃▁▃▃▁▃▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▅█ █
+  140 μs        Histogram: log(frequency) by time       577 μs <
+
+ Memory estimate: 276.16 KiB, allocs estimate: 143.
+Bi-cubic interpolation, query:
+BenchmarkTools.Trial: 10000 samples with 997 evaluations per sample.
+ Range (min … max):  21.595 ns … 43.109 ns  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     21.715 ns              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   21.802 ns ±  0.704 ns  ┊ GC (mean ± σ):  0.00% ± 0.00%
+
+  ▃▅██▅▂                                                      ▂
+  ██████▅▅▅▆▃▃▅▇█▆▅▁▃▃▁▁▁▃▁▁▁▁▁▃▁▁▃▁▃▁▃▁▄▃▅▄▅▆▆▆▄▆▅▅▅▅▇▆▆▅▅▅▅ █
+  21.6 ns      Histogram: log(frequency) by time        24 ns <
+
+ Memory estimate: 0 bytes, allocs estimate: 0.
+Non-lazy GPR, stationary kernel, RKHS system solve: 
+BenchmarkTools.Trial: 4 samples with 1 evaluation per sample.
+ Range (min … max):  1.585 s …    1.790 s  ┊ GC (min … max): 0.07% … 13.05%
+ Time  (median):     1.702 s               ┊ GC (median):    8.14%
+ Time  (mean ± σ):   1.695 s ± 109.955 ms  ┊ GC (mean ± σ):  7.55% ±  6.53%
+
+  ▁       ▁                                                █  
+  █▁▁▁▁▁▁▁█▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█ ▁
+  1.58 s         Histogram: frequency by time         1.79 s <
+
+ Memory estimate: 2.22 GiB, allocs estimate: 48.
+Non-lazy GPR, stationary kernel, query mean and variance: 
+BenchmarkTools.Trial: 137 samples with 1 evaluation per sample.
+ Range (min … max):  35.821 ms …  37.627 ms  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     36.724 ms               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   36.693 ms ± 419.681 μs  ┊ GC (mean ± σ):  0.00% ± 0.00%
+
+           ▁▃ ▆            ▁ ▆ ▆▃▄▃ █▃▃    ▁ ▁                  
+  ▄▁▄▁▁▄▆▄▆██▇█▄▆▄▆▆▆▄▁▆▆▆▄█▆█▁████▆███▇▇▄▇█▁█▄▄▁▁▁▆▄▄▆▄▁▁▄▇▆▆ ▄
+  35.8 ms         Histogram: frequency by time         37.6 ms <
+
+ Memory estimate: 312.20 KiB, allocs estimate: 15.
+Non-lazy GPR, stationary kernel, query mean-only: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  64.610 μs …  6.558 ms  ┊ GC (min … max): 0.00% … 98.64%
+ Time  (median):     66.579 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   75.114 μs ± 75.321 μs  ┊ GC (mean ± σ):  2.11% ±  2.89%
+
+  ▂▆█▆▂▃▆▅▂ ▁                                 ▁▃▅▄▃▂▃▄▃▁▁▁▁   ▂
+  ████████████▇▆▅▆▄▅▄▃▅▁▃▄▃▃▄▁▁▄▃▁▁▃▃▃▁▃▁▁▁▁▁▇█████████████▆▆ █
+  64.6 μs      Histogram: log(frequency) by time       100 μs <
+
+ Memory estimate: 234.23 KiB, allocs estimate: 13.
+Non-lazy GPR, stationary kernel, query variance-only: 
+BenchmarkTools.Trial: 135 samples with 1 evaluation per sample.
+ Range (min … max):  35.985 ms …  40.243 ms  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     36.815 ms               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   37.279 ms ± 965.889 μs  ┊ GC (mean ± σ):  0.00% ± 0.00%
+
+        ▅ ▃ ██▅▆                                                
+  ▅▅█▇▅████▇████▁▇▅█▄▄▄▄▅▄▅▇▅▄▁▄▄▄▅▇█▄▅▄▅▄▁▇█▇▅▁▄▇▁▄▁▄▁▄▁▁▁▁▁▅ ▄
+  36 ms           Histogram: frequency by time         39.7 ms <
+
+ Memory estimate: 234.23 KiB, allocs estimate: 13.
+Non-lazy GPR, stationary kernel, RKHS system solve: 
+BenchmarkTools.Trial: 3 samples with 1 evaluation per sample.
+ Range (min … max):  1.805 s …    2.039 s  ┊ GC (min … max): 0.07% … 11.61%
+ Time  (median):     1.817 s               ┊ GC (median):    1.70%
+ Time  (mean ± σ):   1.887 s ± 131.508 ms  ┊ GC (mean ± σ):  4.75% ±  6.25%
+
+  █ █                                                      █  
+  █▁█▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█ ▁
+  1.81 s         Histogram: frequency by time         2.04 s <
+
+ Memory estimate: 2.23 GiB, allocs estimate: 79869.
+Non-lazy GPR, stationary kernel, query mean and variance: 
+BenchmarkTools.Trial: 137 samples with 1 evaluation per sample.
+ Range (min … max):  36.216 ms …  38.289 ms  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     36.537 ms               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   36.620 ms ± 340.591 μs  ┊ GC (mean ± σ):  0.00% ± 0.00%
+
+    ▂  ▂▅█ ▁▆▁                                                  
+  ▄▇█▅██████████▄▃█▅▄▃▆▄▁▁▃▁▃▃▁▃▃▄▃▁▃▃▄▁▁▁▁▁▁▁▁▃▁▁▁▁▁▁▁▁▁▁▁▁▁▃ ▃
+  36.2 ms         Histogram: frequency by time         38.2 ms <
+
+ Memory estimate: 312.45 KiB, allocs estimate: 21.
+Non-lazy GPR, stationary kernel, query mean-only: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  49.940 μs …  5.725 ms  ┊ GC (min … max): 0.00% … 98.64%
+ Time  (median):     53.540 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   62.243 μs ± 67.764 μs  ┊ GC (mean ± σ):  1.84% ±  1.92%
+
+   ▁▁▃██▆▂▂▂▄▄▃                                 ▂▃▅▅▄▃▂▁▂▁    ▂
+  ▆███████████████▆▆▆▄▄▅▄▄▁▅▄▄▁▁▃▁▁▁▁▁▁▁▁▁▃▁▁▁▄▇███████████▇▆ █
+  49.9 μs      Histogram: log(frequency) by time      86.5 μs <
+
+ Memory estimate: 234.48 KiB, allocs estimate: 19.
+Non-lazy GPR, stationary kernel, query variance-only: 
+BenchmarkTools.Trial: 136 samples with 1 evaluation per sample.
+ Range (min … max):  36.081 ms … 44.515 ms  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     36.626 ms              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   36.892 ms ±  1.163 ms  ┊ GC (mean ± σ):  0.00% ± 0.00%
+
+    ▄▁█                                                        
+  ▃▅████▅▃▃▃▃▂▃▂▂▂▁▂▁▁▁▂▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▃▁▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▂ ▂
+  36.1 ms         Histogram: frequency by time        43.1 ms <
+
+ Memory estimate: 234.48 KiB, allocs estimate: 19.
+
+
+down_factor = 4
+Lazy query: stationary kernel, mean and variance:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  47.440 μs …  2.551 ms  ┊ GC (min … max): 0.00% … 96.52%
+ Time  (median):     48.810 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   50.943 μs ± 35.907 μs  ┊ GC (mean ± σ):  1.77% ±  3.08%
+
+    ▃▅▇██▇▆▅▄▃▂▁    ▁▁▁▁▁▁            ▁▂▁▃▂▂▂▂▃▂▂▂▁▁          ▂
+  ▄██████████████▇▇█████████▇▆▅▅▅▅▃▆▆████████████████▇▇▇▇▆▅▅▆ █
+  47.4 μs      Histogram: log(frequency) by time      59.1 μs <
+
+ Memory estimate: 64.73 KiB, allocs estimate: 27.
+Lazy query: stationary kernel, mean-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  45.520 μs …  1.019 ms  ┊ GC (min … max): 0.00% … 93.64%
+ Time  (median):     46.600 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   47.869 μs ± 20.888 μs  ┊ GC (mean ± σ):  1.17% ±  2.68%
+
+   ▁▄▆███▇▆▅▄▂▂      ▁▁▁▁▁                         ▁          ▂
+  ▅█████████████████████████▇▆▆▅▆▅▆▄▄▄▆▅▇▇████▇██▇███▇▇▇▅▆▅▅▅ █
+  45.5 μs      Histogram: log(frequency) by time        56 μs <
+
+ Memory estimate: 64.73 KiB, allocs estimate: 27.
+Lazy query: stationary kernel, variance-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  45.600 μs … 944.659 μs  ┊ GC (min … max): 0.00% … 91.53%
+ Time  (median):     46.590 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   47.646 μs ±  18.458 μs  ┊ GC (mean ± σ):  1.06% ±  2.67%
+
+   ▃▅▇███▇▆▅▄▃▂▁     ▁▁▂▂▁▁▁                    ▁       ▁      ▃
+  ██████████████▇▇▇▇▇████████▇▆▇▆▆▃▄▁▅▄▃▃▃▃▁▆▆█▇█████████████▇ █
+  45.6 μs       Histogram: log(frequency) by time      55.1 μs <
+
+ Memory estimate: 64.73 KiB, allocs estimate: 27.
+
+(sigma_r_factor, σr) = (3.0, 1.7091562086075212)
+Lazy query: DE kernel, setup cache:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  108.780 μs … 858.969 μs  ┊ GC (min … max): 0.00% … 84.80%
+ Time  (median):     109.335 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   110.233 μs ±  10.758 μs  ┊ GC (mean ± σ):  0.13% ±  1.20%
+
+      ▄█▇▅▄▂▁               ▁▂▂▂▁ ▁▃▃▂▂▂▁                       ▁
+  █▆▅▆████████▇▆▄▄▄▅▄▄▄▇██▇███████████████▇▆▆▅▄▅▇█▇▇█▇▆▅▆▆▇▆▆▇▆ █
+  109 μs        Histogram: log(frequency) by time        114 μs <
+
+ Memory estimate: 19.98 KiB, allocs estimate: 4.
+Lazy query: DE kernel, mean and variance:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  48.880 μs …  1.018 ms  ┊ GC (min … max): 0.00% … 87.96%
+ Time  (median):     50.090 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   51.096 μs ± 24.025 μs  ┊ GC (mean ± σ):  1.44% ±  2.95%
+
+           ▅▆██▆▇▄▃▂▂▁                                         
+  ▁▁▁▁▂▃▄▆█████████████▇▆▅▄▄▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▂▂▂▂▁▂▂▂▁▁▁▂▁▁▁▁▁ ▃
+  48.9 μs         Histogram: frequency by time        53.7 μs <
+
+ Memory estimate: 72.26 KiB, allocs estimate: 47.
+Lazy query: DE kernel, mean-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  46.500 μs … 996.280 μs  ┊ GC (min … max): 0.00% … 88.33%
+ Time  (median):     47.594 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   48.544 μs ±  23.474 μs  ┊ GC (mean ± σ):  1.41% ±  2.81%
+
+          ▄▆▆██▅▅▄▃▂▁                                           
+  ▁▁▁▂▃▄▆████████████▇▆▆▅▅▄▃▃▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▂▂▁▁▁▂▂▁▁▁▁▁▁▁▁▁▁ ▃
+  46.5 μs         Histogram: frequency by time         51.2 μs <
+
+ Memory estimate: 72.26 KiB, allocs estimate: 47.
+Lazy query: DE kernel, variance-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  46.550 μs … 994.349 μs  ┊ GC (min … max): 0.00% … 93.39%
+ Time  (median):     47.680 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   48.764 μs ±  23.641 μs  ┊ GC (mean ± σ):  1.44% ±  2.87%
+
+       ▃▆██▇▆▆▅▃▁                                               
+  ▂▂▃▅████████████▇▅▄▃▃▃▃▃▂▂▂▂▂▂▃▂▂▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▂▂▂ ▄
+  46.6 μs         Histogram: frequency by time         53.1 μs <
+
+ Memory estimate: 72.26 KiB, allocs estimate: 47.
+
+Bi-cubic interpolation, setup:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  37.630 μs …  1.231 ms  ┊ GC (min … max): 0.00% … 93.71%
+ Time  (median):     39.260 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   40.623 μs ± 32.041 μs  ┊ GC (mean ± σ):  2.70% ±  3.43%
+
+            ▃▅▆█▇▇▅▂                                           
+  ▁▁▁▂▂▃▃▅▅▇█████████▇▅▄▃▃▂▂▂▂▁▁▁▁▁▂▁▁▁▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁ ▃
+  37.6 μs         Histogram: frequency by time        44.3 μs <
+
+ Memory estimate: 85.99 KiB, allocs estimate: 143.
+Bi-cubic interpolation, query:
+BenchmarkTools.Trial: 10000 samples with 997 evaluations per sample.
+ Range (min … max):  21.535 ns … 47.984 ns  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     21.675 ns              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   21.744 ns ±  0.548 ns  ┊ GC (mean ± σ):  0.00% ± 0.00%
+
+   ▂▆█▇▄                                                      ▂
+  ██████▇▅▅▄▄▃▄▃▅▇█▆▄▁▁▁▁▁▁▁▁▁▁▁▁▁▁▃▁▃▁▁▃▁▅▄▅▆▅▆▆▆▅▅▄▅▅▅▅▆▆▇▇ █
+  21.5 ns      Histogram: log(frequency) by time      23.8 ns <
+
+ Memory estimate: 0 bytes, allocs estimate: 0.
+Non-lazy GPR, stationary kernel, RKHS system solve: 
+BenchmarkTools.Trial: 56 samples with 1 evaluation per sample.
+ Range (min … max):  65.330 ms … 250.971 ms  ┊ GC (min … max):  0.00% … 71.29%
+ Time  (median):     70.856 ms               ┊ GC (median):     6.68%
+ Time  (mean ± σ):   89.475 ms ±  53.938 ms  ┊ GC (mean ± σ):  25.84% ± 20.97%
+
+  ▂█▁                                                           
+  ███▄▄▁▁▃▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▃▁▁▁▁▃▃ ▁
+  65.3 ms         Histogram: frequency by time          247 ms <
+
+ Memory estimate: 148.41 MiB, allocs estimate: 44.
+Non-lazy GPR, stationary kernel, query mean and variance: 
+BenchmarkTools.Trial: 2411 samples with 1 evaluation per sample.
+ Range (min … max):  1.977 ms …  3.007 ms  ┊ GC (min … max): 0.00% … 25.35%
+ Time  (median):     2.053 ms              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   2.070 ms ± 64.113 μs  ┊ GC (mean ± σ):  0.02% ±  0.52%
+
+         ▁█▆▃▁                                                
+  ▂▂▂▂▁▂▂█████▆▅▄▄▄▃▃▃▂▂▂▂▂▂▂▂▁▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▂▂▂▂▂▂ ▃
+  1.98 ms        Histogram: frequency by time        2.42 ms <
+
+ Memory estimate: 79.95 KiB, allocs estimate: 15.
+Non-lazy GPR, stationary kernel, query mean-only: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  15.870 μs … 717.119 μs  ┊ GC (min … max): 0.00% … 93.98%
+ Time  (median):     16.590 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   17.835 μs ±  12.232 μs  ┊ GC (mean ± σ):  1.10% ±  1.64%
+
+   ▅▇█▇▆▆▆▅▄▂                                 ▂▂▂▂▂▁▁▂▁▂▂▂▁▁▁▁ ▂
+  █████████████▆▆▇▆▇▇███▇▇▆▅▅▃▃▁▁▁▁▁▃▃▄▁▁▄▅▆▆█████████████████ █
+  15.9 μs       Histogram: log(frequency) by time      25.4 μs <
+
+ Memory estimate: 60.04 KiB, allocs estimate: 13.
+Non-lazy GPR, stationary kernel, query variance-only: 
+BenchmarkTools.Trial: 2419 samples with 1 evaluation per sample.
+ Range (min … max):  2.024 ms …  2.940 ms  ┊ GC (min … max): 0.00% … 24.84%
+ Time  (median):     2.051 ms              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   2.063 ms ± 45.879 μs  ┊ GC (mean ± σ):  0.01% ±  0.51%
+
+     ▇█▇▃▂                                                    
+  ▂▃▇██████▆▅▅▄▄▄▄▃▄▃▃▃▃▂▂▂▂▂▂▂▂▂▁▂▂▂▂▂▂▁▂▂▂▁▂▂▂▂▂▂▁▂▁▂▂▁▁▂▂ ▃
+  2.02 ms        Histogram: frequency by time        2.27 ms <
+
+ Memory estimate: 60.04 KiB, allocs estimate: 13.
+Non-lazy GPR, stationary kernel, RKHS system solve: 
+BenchmarkTools.Trial: 55 samples with 1 evaluation per sample.
+ Range (min … max):  72.495 ms … 248.000 ms  ┊ GC (min … max):  4.94% … 71.30%
+ Time  (median):     75.506 ms               ┊ GC (median):     4.74%
+ Time  (mean ± σ):   91.661 ms ±  49.425 ms  ┊ GC (mean ± σ):  21.12% ± 19.67%
+
+  █▃                                                            
+  ██▆▅▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▃▄ ▁
+  72.5 ms         Histogram: frequency by time          247 ms <
+
+ Memory estimate: 149.44 MiB, allocs estimate: 20417.
+Non-lazy GPR, stationary kernel, query mean and variance: 
+BenchmarkTools.Trial: 2364 samples with 1 evaluation per sample.
+ Range (min … max):  2.023 ms …  3.175 ms  ┊ GC (min … max): 0.00% … 27.05%
+ Time  (median):     2.099 ms              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   2.111 ms ± 54.474 μs  ┊ GC (mean ± σ):  0.02% ±  0.56%
+
+             ▂██▃▁                                            
+  ▂▂▁▂▃▃▃▃▂▃▆█████▆▆▅▅▄▃▃▃▃▃▂▃▂▂▂▂▂▁▂▂▂▂▂▁▂▂▂▂▁▂▂▁▁▂▂▁▂▂▂▂▁▂ ▃
+  2.02 ms        Histogram: frequency by time        2.34 ms <
+
+ Memory estimate: 80.20 KiB, allocs estimate: 21.
+Non-lazy GPR, stationary kernel, query mean-only: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  14.880 μs … 830.619 μs  ┊ GC (min … max): 0.00% … 95.94%
+ Time  (median):     15.500 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   16.238 μs ±  13.745 μs  ┊ GC (mean ± σ):  1.39% ±  1.64%
+
+  ▂▆███▇▆▄▃▃▃▂▁                                    ▁      ▁ ▁  ▂
+  ██████████████▇▇▇██▇▇▇▆▇▆▆▄▇▅▃▁▃▁▁▃▅▁▃▁▃▁▁▁▃▅▆▆████▇█▇██████ █
+  14.9 μs       Histogram: log(frequency) by time      24.2 μs <
+
+ Memory estimate: 60.29 KiB, allocs estimate: 19.
+Non-lazy GPR, stationary kernel, query variance-only: 
+BenchmarkTools.Trial: 2360 samples with 1 evaluation per sample.
+ Range (min … max):  2.000 ms …  3.145 ms  ┊ GC (min … max): 0.00% … 28.18%
+ Time  (median):     2.103 ms              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   2.114 ms ± 47.900 μs  ┊ GC (mean ± σ):  0.02% ±  0.58%
+
+                 ▃█▇▄▁                                        
+  ▂▁▂▁▁▁▂▂▁▃▂▂▃▂▄█████▇▇▅▅▄▄▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▂▂▂▂▂▂ ▃
+  2 ms           Histogram: frequency by time        2.33 ms <
+
+ Memory estimate: 60.29 KiB, allocs estimate: 19.
+
+
+down_factor = 6
+Lazy query: stationary kernel, mean and variance:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  46.600 μs …  2.140 ms  ┊ GC (min … max): 0.00% … 95.87%
+ Time  (median):     48.040 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   50.144 μs ± 32.042 μs  ┊ GC (mean ± σ):  1.63% ±  3.05%
+
+  ▁▃▄▅▆▇██▇▅▄▁▁     ▁▁▁▁               ▁▂▂▃▃▂▂▂▂▂▂▁▁          ▂
+  ███████████████▇▇██████▇▇▆▅▆▆▆▆▅▅▅▅▇████████████████▆▆▆▅▅▆▆ █
+  46.6 μs      Histogram: log(frequency) by time      58.4 μs <
+
+ Memory estimate: 64.73 KiB, allocs estimate: 27.
+Lazy query: stationary kernel, mean-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  44.960 μs … 952.389 μs  ┊ GC (min … max): 0.00% … 93.05%
+ Time  (median):     45.940 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   46.795 μs ±  18.029 μs  ┊ GC (mean ± σ):  1.07% ±  2.67%
+
+   ▁▄▅▇███▇▅▄▃▃▂▁       ▁▁▁▁                                   ▂
+  ▆██████████████▇▇▆▇▇████████▇▇▆▆▆▅▆▅▄▃▄▂▄▂▃▄▂▃▄▄▅▆▆▆▆▆▅▅▅▆▆▆ █
+  45 μs         Histogram: log(frequency) by time      53.7 μs <
+
+ Memory estimate: 64.73 KiB, allocs estimate: 27.
+Lazy query: stationary kernel, variance-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  44.980 μs … 892.719 μs  ┊ GC (min … max): 0.00% … 93.68%
+ Time  (median):     45.960 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   46.837 μs ±  17.743 μs  ┊ GC (mean ± σ):  1.07% ±  2.68%
+
+   ▂▄▆▇██▇▆▅▄▃▂▁      ▁▁▁▁▁                                    ▂
+  ▇███████████████▇████████████▇▇▅▅▄▄▅▃▅▁▄▁▁▃▃▃▃▆▅▆▆▅▆▆▆▆▇▆▇▇▆ █
+  45 μs         Histogram: log(frequency) by time      54.1 μs <
+
+ Memory estimate: 64.73 KiB, allocs estimate: 27.
+
+(sigma_r_factor, σr) = (3.0, 1.8089465765202113)
+Lazy query: DE kernel, setup cache:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  47.980 μs …  1.195 ms  ┊ GC (min … max): 0.00% … 93.30%
+ Time  (median):     48.290 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   48.797 μs ± 11.606 μs  ┊ GC (mean ± σ):  0.23% ±  0.93%
+
+     ▄██▆▄▄▄▂▁▁         ▃▄▃▃▁▁   ▂▂▂     ▁ ▁                  ▂
+  ▇█▇██████████▇▆▇▅▆▄▄▁▆███████▇████████████▇▇███▇▇▆▆▅▆▆▇▇▆▆▆ █
+  48 μs        Histogram: log(frequency) by time      51.3 μs <
+
+ Memory estimate: 8.85 KiB, allocs estimate: 4.
+Lazy query: DE kernel, mean and variance:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  48.060 μs …  1.462 ms  ┊ GC (min … max): 0.00% … 95.62%
+ Time  (median):     49.510 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   50.967 μs ± 28.880 μs  ┊ GC (mean ± σ):  1.68% ±  2.96%
+
+    ▁▄▆▇███▇▇▆▅▄▃▂▁  ▁▁▁▁▁▁▁                                  ▃
+  ▃▇██████████████████████████▇▇▇▆▆▃▄▄▄▄▄▃▄▄▆▆▇▆▇▆▇▇▆▇▆▆▇▆▆▅▆ █
+  48.1 μs      Histogram: log(frequency) by time      58.4 μs <
+
+ Memory estimate: 72.26 KiB, allocs estimate: 47.
+Lazy query: DE kernel, mean-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  46.190 μs …  1.553 ms  ┊ GC (min … max): 0.00% … 96.00%
+ Time  (median):     47.400 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   48.699 μs ± 27.757 μs  ┊ GC (mean ± σ):  1.62% ±  2.85%
+
+    ▃▆▇███▇▇▆▅▄▃▂▁▁▁  ▁▁▁▁▁                                   ▂
+  ▃██████████████████████████▇█▆▅▅▅▅▅▄▂▄▂▃▃▄▅▅▆█▆▇▇▅▇▇▇▇▇▆▆▆▆ █
+  46.2 μs      Histogram: log(frequency) by time      56.1 μs <
+
+ Memory estimate: 72.26 KiB, allocs estimate: 47.
+Lazy query: DE kernel, variance-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  46.040 μs …  1.661 ms  ┊ GC (min … max): 0.00% … 93.58%
+ Time  (median):     47.040 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   48.607 μs ± 30.099 μs  ┊ GC (mean ± σ):  1.75% ±  2.86%
+
+   ▃▆▇███▇▆▅▄▃▃▁▁   ▁▁▂▂▁▁▁▁                   ▁▁▁▁▁▁▁▁▁▁▁    ▃
+  ███████████████████████████▇▇▆▅▆▅▅▅▁▄▅▄▅▇▆█▇███████████████ █
+  46 μs        Histogram: log(frequency) by time      55.8 μs <
+
+ Memory estimate: 72.26 KiB, allocs estimate: 47.
+
+Bi-cubic interpolation, setup:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  19.930 μs …  2.302 ms  ┊ GC (min … max): 0.00% … 95.64%
+ Time  (median):     20.989 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   22.020 μs ± 42.277 μs  ┊ GC (mean ± σ):  3.74% ±  1.94%
+
+         ▁▄█▇███▅▄▂▁                                           
+  ▁▁▁▂▃▅▆████████████▆▅▄▄▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁ ▃
+  19.9 μs         Histogram: frequency by time        24.7 μs <
+
+ Memory estimate: 46.35 KiB, allocs estimate: 143.
+Bi-cubic interpolation, query:
+BenchmarkTools.Trial: 10000 samples with 997 evaluations per sample.
+ Range (min … max):  21.575 ns … 34.273 ns  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     21.725 ns              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   21.778 ns ±  0.371 ns  ┊ GC (mean ± σ):  0.00% ± 0.00%
+
+    ▅█▇▅▂                                                     ▂
+  ▄▇█████▆▅▆▆▅▆▅▅█▇▆▃▅▃▁▁▁▁▁▁▁▁▁▁▃▁▁▁▁▁▁▃▃▄▄▄▅▄▅▆▆▆▅▅▅▄▄▆▆▆▆▆ █
+  21.6 ns      Histogram: log(frequency) by time      23.8 ns <
+
+ Memory estimate: 0 bytes, allocs estimate: 0.
+Non-lazy GPR, stationary kernel, RKHS system solve: 
+BenchmarkTools.Trial: 459 samples with 1 evaluation per sample.
+ Range (min … max):   8.423 ms …  13.613 ms  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     10.884 ms               ┊ GC (median):    4.66%
+ Time  (mean ± σ):   10.903 ms ± 595.745 μs  ┊ GC (mean ± σ):  9.72% ± 5.92%
+
+  ▁                                    ▇█▃   ▁▄▆█▅▂             
+  █▅▇▅▁▁▁▁▁▁▁▁▁▁▁▁▁▄▄▄▅▁▁▅▄▁▄▁▁▄▁▁▁▁▁▁▆████▇▁██████▅▁▇▁▄▄▄▄▁▅▄ ▇
+  8.42 ms       Histogram: log(frequency) by time      12.1 ms <
+
+ Memory estimate: 28.83 MiB, allocs estimate: 40.
+Non-lazy GPR, stationary kernel, query mean and variance: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  390.220 μs …  1.935 ms  ┊ GC (min … max): 0.00% … 77.21%
+ Time  (median):     395.550 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   397.393 μs ± 27.351 μs  ┊ GC (mean ± σ):  0.15% ±  1.70%
+
+      ▂▅█▆▄▄▂                                                   
+  ▂▂▃▅████████▆▅▄▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ ▃
+  390 μs          Histogram: frequency by time          429 μs <
+
+ Memory estimate: 35.45 KiB, allocs estimate: 15.
+Non-lazy GPR, stationary kernel, query mean-only: 
+BenchmarkTools.Trial: 10000 samples with 5 evaluations per sample.
+ Range (min … max):  6.846 μs … 316.904 μs  ┊ GC (min … max): 0.00% … 93.87%
+ Time  (median):     7.446 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   8.128 μs ±   7.524 μs  ┊ GC (mean ± σ):  6.03% ±  6.61%
+
+   ▅▁   ▃█▇▁                                                   
+  ▆██▅▅▆████▇▆▅▃▃▂▂▂▂▂▂▂▂▂▁▂▁▁▁▁▁▁▂▂▂▁▁▂▁▂▂▂▂▁▂▁▂▂▂▃▃▃▃▂▂▂▂▂▂ ▃
+  6.85 μs         Histogram: frequency by time        11.5 μs <
+
+ Memory estimate: 26.66 KiB, allocs estimate: 13.
+Non-lazy GPR, stationary kernel, query variance-only: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  384.929 μs …  1.500 ms  ┊ GC (min … max): 0.00% … 69.58%
+ Time  (median):     390.370 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   391.822 μs ± 18.926 μs  ┊ GC (mean ± σ):  0.08% ±  1.21%
+
+       ▅▇█▆▄▄▂                                                  
+  ▂▂▃▄████████▇▅▄▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▂▁▁▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ ▃
+  385 μs          Histogram: frequency by time          424 μs <
+
+ Memory estimate: 26.66 KiB, allocs estimate: 13.
+Non-lazy GPR, stationary kernel, RKHS system solve: 
+BenchmarkTools.Trial: 390 samples with 1 evaluation per sample.
+ Range (min … max):  10.160 ms …  14.284 ms  ┊ GC (min … max): 0.00% … 4.57%
+ Time  (median):     12.879 ms               ┊ GC (median):    4.16%
+ Time  (mean ± σ):   12.841 ms ± 649.127 μs  ┊ GC (mean ± σ):  8.44% ± 5.16%
+
+                                         ▄█▃▇▁    ▄▅▄▁▃         
+  ▄▄▃▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▁▃▁▂▁▁▂▁▃▃▁▁▁▁▁▄█████▆▄▅▆█████▇▃▄▃▁▁▃ ▃
+  10.2 ms         Histogram: frequency by time         13.8 ms <
+
+ Memory estimate: 29.29 MiB, allocs estimate: 9021.
+Non-lazy GPR, stationary kernel, query mean and variance: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  356.250 μs …  1.751 ms  ┊ GC (min … max): 0.00% … 72.23%
+ Time  (median):     392.379 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   393.551 μs ± 25.735 μs  ┊ GC (mean ± σ):  0.13% ±  1.52%
+
+                                         ▃▇█▆▄▂                 
+  ▂▁▂▂▁▂▂▂▁▁▂▂▁▁▁▁▁▂▁▂▁▁▁▁▁▁▁▁▁▂▂▂▂▂▂▃▄▅███████▇▅▃▃▃▃▂▂▂▂▂▂▂▂▂ ▃
+  356 μs          Histogram: frequency by time          408 μs <
+
+ Memory estimate: 35.70 KiB, allocs estimate: 21.
+Non-lazy GPR, stationary kernel, query mean-only: 
+BenchmarkTools.Trial: 10000 samples with 4 evaluations per sample.
+ Range (min … max):  7.013 μs … 664.367 μs  ┊ GC (min … max): 0.00% … 97.13%
+ Time  (median):     7.782 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   8.398 μs ±  10.781 μs  ┊ GC (mean ± σ):  4.27% ±  3.92%
+
+  ▂▃▃▃▃▃▄▅▇███▆▅▃▂▁▁▁▁▁▁                              ▂▂▃▃▂▁  ▃
+  ███████████████████████▇▇▆▅▅▅▃▁▁▁▄▄▃▁▃▃▁▄▁▅▃▁▁▁▅▇▇█████████ █
+  7.01 μs      Histogram: log(frequency) by time      11.3 μs <
+
+ Memory estimate: 26.91 KiB, allocs estimate: 19.
+Non-lazy GPR, stationary kernel, query variance-only: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  356.910 μs …  1.734 ms  ┊ GC (min … max): 0.00% … 74.20%
+ Time  (median):     389.050 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   390.283 μs ± 22.348 μs  ┊ GC (mean ± σ):  0.09% ±  1.23%
+
+                                      ▂██▆▆▄                    
+  ▂▂▂▁▁▁▁▂▂▂▁▁▁▂▁▂▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▃▅███████▇▅▄▃▃▃▃▃▂▂▂▂▂▂▂▂▂ ▃
+  357 μs          Histogram: frequency by time          405 μs <
+
+ Memory estimate: 26.91 KiB, allocs estimate: 19.
+
+
+down_factor = 8
+Lazy query: stationary kernel, mean and variance:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  46.300 μs …  2.050 ms  ┊ GC (min … max): 0.00% … 95.34%
+ Time  (median):     47.570 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   49.574 μs ± 31.177 μs  ┊ GC (mean ± σ):  1.61% ±  3.07%
+
+   ▂▄▅▇███▆▅▄▂▁     ▁▂▁▁▁                ▁▁▂▂▂▃▂▂▂▂▂▂▂▂▁      ▂
+  ▆█████████████▇▇▇███████▇▇▅▄▅▃▃▄▃▂▄▃▃▇▇████████████████▆▆▆▇ █
+  46.3 μs      Histogram: log(frequency) by time        57 μs <
+
+ Memory estimate: 64.73 KiB, allocs estimate: 27.
+Lazy query: stationary kernel, mean-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  44.330 μs … 820.479 μs  ┊ GC (min … max): 0.00% … 92.52%
+ Time  (median):     45.220 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   46.010 μs ±  17.694 μs  ┊ GC (mean ± σ):  1.08% ±  2.68%
+
+   ▂▄▆▇███▇▆▅▅▄▃▃▁       ▂▁▁▁▁▁▁▁                              ▃
+  ▇█████████████████▆▇▇██████████▇█▅▇▆▆▆▃▄▅▃▅▃▄▄▁▃▁▃▃▁▁▃▅▃▆▅▅▆ █
+  44.3 μs       Histogram: log(frequency) by time      52.1 μs <
+
+ Memory estimate: 64.73 KiB, allocs estimate: 27.
+Lazy query: stationary kernel, variance-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  44.470 μs … 881.679 μs  ┊ GC (min … max): 0.00% … 92.37%
+ Time  (median):     45.460 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   46.239 μs ±  17.045 μs  ┊ GC (mean ± σ):  1.03% ±  2.67%
+
+    ▃▆▇███▇▆▅▄▃▃▂▁     ▁▂▂▁▁▁▁                                 ▃
+  ▆▇███████████████▇▇███████████▇▆▆▆▆▆▆▅▃▄▃▃▃▄▄▁▁▃▄▄▄▅▅▆▆▆▆▅▄▆ █
+  44.5 μs       Histogram: log(frequency) by time      53.1 μs <
+
+ Memory estimate: 64.73 KiB, allocs estimate: 27.
+
+(sigma_r_factor, σr) = (3.0, 1.9681479103612256)
+Lazy query: DE kernel, setup cache:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  27.779 μs …  81.080 μs  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     27.920 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   28.008 μs ± 736.233 ns  ┊ GC (mean ± σ):  0.00% ± 0.00%
+
+  ▁▄██▇▆▅▃▂▂▂▁▁                                                ▂
+  █████████████▇███▇▆▄▅▄▃▄▃▃▁▁▁▁▁▁▁▁▁▁▁▁▄▃▄▁▄▆▅▅▇▇▆▆▅▅▆▆▅▆█▇▇▇ █
+  27.8 μs       Histogram: log(frequency) by time      30.1 μs <
+
+ Memory estimate: 5.16 KiB, allocs estimate: 4.
+Lazy query: DE kernel, mean and variance:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  47.300 μs …  1.421 ms  ┊ GC (min … max): 0.00% … 95.50%
+ Time  (median):     48.500 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   49.876 μs ± 26.988 μs  ┊ GC (mean ± σ):  1.55% ±  2.85%
+
+   ▁▄▇████▇▆▅▅▄▃▁▁ ▁▁▁▁▁▁▁                                    ▂
+  ▆██████████████████████████▇▆▆▆▄▅▂▂▂▃▄▆▅▆█▇▇▇█▇█▇█▇▆▆▆▇▅▄▅▅ █
+  47.3 μs      Histogram: log(frequency) by time      57.7 μs <
+
+ Memory estimate: 72.26 KiB, allocs estimate: 47.
+Lazy query: DE kernel, mean-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  45.350 μs …  1.577 ms  ┊ GC (min … max): 0.00% … 93.71%
+ Time  (median):     46.340 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   47.691 μs ± 27.746 μs  ┊ GC (mean ± σ):  1.65% ±  2.85%
+
+   ▂▆▇███▇▆▅▄▃▂▁▁    ▁▁▁▁▁                                    ▂
+  ██████████████████████████▇▇▆▆▆▄▅▅▂▄▂▃▃▃▃▄▅▅▇▇▇█▇█▇▆▇▇▇▇▇▇▅ █
+  45.4 μs      Histogram: log(frequency) by time        55 μs <
+
+ Memory estimate: 72.26 KiB, allocs estimate: 47.
+Lazy query: DE kernel, variance-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  45.710 μs …  1.415 ms  ┊ GC (min … max): 0.00% … 95.51%
+ Time  (median):     46.770 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   48.017 μs ± 26.447 μs  ┊ GC (mean ± σ):  1.58% ±  2.84%
+
+   ▂▅▇████▇▆▅▄▃▂▁▁  ▁▁ ▁▁▁▁                                   ▂
+  ▆████████████████████████████▆▇▆▅▆▄▃▂▂▃▂▃▄▅▅▅▇▆▇▆▇▇▆▇██▇▆▇▆ █
+  45.7 μs      Histogram: log(frequency) by time        55 μs <
+
+ Memory estimate: 72.26 KiB, allocs estimate: 47.
+
+Bi-cubic interpolation, setup:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  13.950 μs …  2.826 ms  ┊ GC (min … max): 0.00% … 98.76%
+ Time  (median):     14.860 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   15.545 μs ± 39.476 μs  ┊ GC (mean ± σ):  3.52% ±  1.38%
+
+            ▂▅▆▇█▇▅▃▁                                          
+  ▁▁▁▁▂▃▄▅▇███████████▇▇▆▅▄▃▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁ ▃
+  14 μs           Histogram: frequency by time        17.5 μs <
+
+ Memory estimate: 32.55 KiB, allocs estimate: 143.
+Bi-cubic interpolation, query:
+BenchmarkTools.Trial: 10000 samples with 997 evaluations per sample.
+ Range (min … max):  21.535 ns … 47.703 ns  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     21.685 ns              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   21.766 ns ±  0.616 ns  ┊ GC (mean ± σ):  0.00% ± 0.00%
+
+   ▂▄██▄                                                      ▂
+  ██████▇▁▁▁▁▁▃▃▆█▇▅▃▃▁▃▁▃▁▁▁▁▃▁▁▁▁▁▁▃▁▁▄▆▅▆▆▆▅▅▅▅▅▅▅▅▆▆▆▆▆▆▆ █
+  21.5 ns      Histogram: log(frequency) by time      23.9 ns <
+
+ Memory estimate: 0 bytes, allocs estimate: 0.
+Non-lazy GPR, stationary kernel, RKHS system solve: 
+BenchmarkTools.Trial: 1596 samples with 1 evaluation per sample.
+ Range (min … max):  2.392 ms …   4.726 ms  ┊ GC (min … max):  0.00% … 44.29%
+ Time  (median):     3.096 ms               ┊ GC (median):    10.93%
+ Time  (mean ± σ):   3.131 ms ± 476.315 μs  ┊ GC (mean ± σ):  10.52% ±  8.43%
+
+  ▁█▁                   ▇█▂   ▁▃▁                       ▁▅     
+  ███▄▃▃▅▅▃▃▂▁▂▁▁▁▁▁▂▁▃▅███▇▆▆███▅▄▄▄▃▃▃▂▂▃▄▅▃▃▄▃▃▃▂▂▂▃▆██▇▅▃ ▄
+  2.39 ms         Histogram: frequency by time        3.94 ms <
+
+ Memory estimate: 9.66 MiB, allocs estimate: 36.
+Non-lazy GPR, stationary kernel, query mean and variance: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  137.070 μs …  1.705 ms  ┊ GC (min … max): 0.00% … 90.33%
+ Time  (median):     139.920 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   140.942 μs ± 21.080 μs  ┊ GC (mean ± σ):  0.20% ±  1.27%
+
+      ▅██▅▁                                                     
+  ▁▂▄██████▇▇▇███▇▇▇▆▅▄▄▃▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁ ▃
+  137 μs          Histogram: frequency by time          154 μs <
+
+ Memory estimate: 20.70 KiB, allocs estimate: 15.
+Non-lazy GPR, stationary kernel, query mean-only: 
+BenchmarkTools.Trial: 10000 samples with 7 evaluations per sample.
+ Range (min … max):  4.284 μs … 178.093 μs  ┊ GC (min … max): 0.00% … 93.28%
+ Time  (median):     4.617 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   4.925 μs ±   5.192 μs  ┊ GC (mean ± σ):  5.36% ±  5.22%
+
+    ▂▁   ▂▅▇███▇▅▃▂▁                                           
+  ▃▅███▇████████████▇▆▅▅▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▂▂▂▁▂▂▁▂▂▂ ▄
+  4.28 μs         Histogram: frequency by time        5.95 μs <
+
+ Memory estimate: 15.60 KiB, allocs estimate: 13.
+Non-lazy GPR, stationary kernel, query variance-only: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  136.679 μs …  1.642 ms  ┊ GC (min … max): 0.00% … 89.11%
+ Time  (median):     139.710 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   140.791 μs ± 15.563 μs  ┊ GC (mean ± σ):  0.10% ±  0.89%
+
+       ▃▇█▇▄▁                                                   
+  ▁▁▂▄▇██████▆▅▅▆▇▇▆▅▅▄▄▅▅▆▇▆▆▄▃▃▂▂▂▂▂▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁ ▃
+  137 μs          Histogram: frequency by time          151 μs <
+
+ Memory estimate: 15.60 KiB, allocs estimate: 13.
+Non-lazy GPR, stationary kernel, RKHS system solve: 
+BenchmarkTools.Trial: 1280 samples with 1 evaluation per sample.
+ Range (min … max):  3.175 ms …   5.696 ms  ┊ GC (min … max): 0.00% … 40.56%
+ Time  (median):     3.869 ms               ┊ GC (median):    9.37%
+ Time  (mean ± σ):   3.904 ms ± 486.690 μs  ┊ GC (mean ± σ):  8.81% ±  6.67%
+
+   █                    ▃▇    ▁                         ▁      
+  ▇█▇▄▄▄▄▃▂▂▂▂▁▁▁▁▁▁▂▁▁▃███▆▅▇█▅▅▅▂▃▂▂▃▃▄▃▃▃▃▄▃▂▃▂▂▂▂▂▃██▆▄▂▃ ▃
+  3.18 ms         Histogram: frequency by time        4.77 ms <
+
+ Memory estimate: 9.93 MiB, allocs estimate: 5241.
+Non-lazy GPR, stationary kernel, query mean and variance: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  140.020 μs …  1.738 ms  ┊ GC (min … max): 0.00% … 90.35%
+ Time  (median):     142.500 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   143.625 μs ± 22.755 μs  ┊ GC (mean ± σ):  0.22% ±  1.27%
+
+         ▁▄▆▇█▄▂                                                
+  ▂▁▂▂▃▄▆████████▅▄▃▃▄▄▅▅▅▅▅▄▄▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ ▃
+  140 μs          Histogram: frequency by time          152 μs <
+
+ Memory estimate: 20.95 KiB, allocs estimate: 21.
+Non-lazy GPR, stationary kernel, query mean-only: 
+BenchmarkTools.Trial: 10000 samples with 7 evaluations per sample.
+ Range (min … max):  4.504 μs … 205.036 μs  ┊ GC (min … max): 0.00% … 93.29%
+ Time  (median):     5.020 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   5.313 μs ±   5.854 μs  ┊ GC (mean ± σ):  5.54% ±  5.37%
+
+                        ▁▃▄▆▇██▆▅▂▂                            
+  ▁▁▁▂▂▃▆▇█▇█▆▅▅▄▃▃▃▃▅▆████████████▇▆▅▅▄▃▂▂▂▂▂▁▂▁▂▂▁▁▁▁▁▁▁▁▁▁ ▃
+  4.5 μs          Histogram: frequency by time        5.67 μs <
+
+ Memory estimate: 15.85 KiB, allocs estimate: 19.
+Non-lazy GPR, stationary kernel, query variance-only: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  139.350 μs …  1.879 ms  ┊ GC (min … max): 0.00% … 85.70%
+ Time  (median):     142.070 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   142.885 μs ± 17.565 μs  ┊ GC (mean ± σ):  0.11% ±  0.86%
+
+            ▂▆█▆▄▂                                              
+  ▂▂▂▂▂▂▃▄▆███████▇▅▄▃▃▄▄▄▅▄▄▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▂ ▃
+  139 μs          Histogram: frequency by time          151 μs <
+
+ Memory estimate: 15.85 KiB, allocs estimate: 19.
+
+
+down_factor = 10
+Lazy query: stationary kernel, mean and variance:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  45.770 μs …  2.180 ms  ┊ GC (min … max): 0.00% … 95.91%
+ Time  (median):     47.290 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   49.285 μs ± 32.101 μs  ┊ GC (mean ± σ):  1.66% ±  3.08%
+
+   ▁▃▄▅▆▇█▇▆▄▃▁      ▁▁▁▁                ▁▂▂▂▂▂▂▂▂▃▂▂ ▁       ▂
+  ▅█████████████▇▇▇███████▇▆▅▅▅▅▃▃▄▄▄▅▅▇████████████████▆▆▆▆▅ █
+  45.8 μs      Histogram: log(frequency) by time      57.2 μs <
+
+ Memory estimate: 64.73 KiB, allocs estimate: 27.
+Lazy query: stationary kernel, mean-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  43.960 μs …  1.008 ms  ┊ GC (min … max): 0.00% … 93.42%
+ Time  (median):     45.140 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   46.009 μs ± 19.075 μs  ┊ GC (mean ± σ):  1.16% ±  2.70%
+
+   ▁▄▅▇▇██▇▇▆▅▄▃▂▁   ▁▁▂▁▁▁▁▁▁                                ▃
+  ▆███████████████▇▇███████████▆▆▆▆▁▆▅▄▅▃▁▄▄▃▅▃▃▃▁▆▇▆▆▇▅▇▆▇▆▇ █
+  44 μs        Histogram: log(frequency) by time      53.4 μs <
+
+ Memory estimate: 64.73 KiB, allocs estimate: 27.
+Lazy query: stationary kernel, variance-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  43.930 μs …  1.007 ms  ┊ GC (min … max): 0.00% … 93.04%
+ Time  (median):     45.250 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   46.151 μs ± 19.251 μs  ┊ GC (mean ± σ):  1.17% ±  2.70%
+
+     ▂▄▆███▇▆▅▄▃▂▁     ▁▂▁▂▁▁                                 ▃
+  ▃▃▇██████████████▇█▇██████████▇▇▆▄▅▅▅▁▁▅▁▄▅▅▄▅▄▅▆▆▆▆▆▇▆▆▆▆▇ █
+  43.9 μs      Histogram: log(frequency) by time      53.4 μs <
+
+ Memory estimate: 64.73 KiB, allocs estimate: 27.
+
+(sigma_r_factor, σr) = (3.0, 1.5860989019618041)
+Lazy query: DE kernel, setup cache:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  17.160 μs … 141.100 μs  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     17.280 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   17.344 μs ±   1.268 μs  ┊ GC (mean ± σ):  0.00% ± 0.00%
+
+   ▆██▇▅▄▄▃▃▃▂▃▂▁                                              ▂
+  ▆███████████████▇▇▇▇▇▄▅▅▅▅▄▄▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▃▁▁▄▃▅▆▆▅▆▆▆▆▆ █
+  17.2 μs       Histogram: log(frequency) by time        19 μs <
+
+ Memory estimate: 3.23 KiB, allocs estimate: 4.
+Lazy query: DE kernel, mean and variance:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  47.400 μs …  1.331 ms  ┊ GC (min … max): 0.00% … 95.26%
+ Time  (median):     48.470 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   49.760 μs ± 26.919 μs  ┊ GC (mean ± σ):  1.56% ±  2.85%
+
+   ▂▅▆▇███▇▆▅▄▃▂       ▁▁▁▁▁                                  ▂
+  ▇███████████████▇██████████▇▇▇▇▆▅▄▄▄▃▂▄▂▄▃▄▃▅▅▇▇▇██▇▇▇▇▇█▇█ █
+  47.4 μs      Histogram: log(frequency) by time      56.9 μs <
+
+ Memory estimate: 72.26 KiB, allocs estimate: 47.
+Lazy query: DE kernel, mean-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  45.750 μs …  1.261 ms  ┊ GC (min … max): 0.00% … 92.37%
+ Time  (median):     46.710 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   48.073 μs ± 28.653 μs  ┊ GC (mean ± σ):  1.70% ±  2.83%
+
+  ▁▄▆▇███▇▆▅▅▄▃▂▁▁   ▁▂▁▂▁▁▁▁▁                      ▁  ▁      ▃
+  ████████████████████████████▇▇▆▆▅▅▄▃▅▃▁▃▃▅▅▅▆▇█▇█▇████████▇ █
+  45.8 μs      Histogram: log(frequency) by time      55.1 μs <
+
+ Memory estimate: 72.26 KiB, allocs estimate: 47.
+Lazy query: DE kernel, variance-only:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  45.300 μs …  1.179 ms  ┊ GC (min … max): 0.00% … 95.15%
+ Time  (median):     46.660 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   48.085 μs ± 27.588 μs  ┊ GC (mean ± σ):  1.65% ±  2.85%
+
+    ▃▅▇████▇▆▅▄▃▂▁▁ ▁▁ ▁▁▁▁                                   ▂
+  ▄████████████████▇████████▇▇█▆▆▆▆▆▃▂▄▃▃▆▆▇▇▇███████▇█▇█▆▆▅▅ █
+  45.3 μs      Histogram: log(frequency) by time      55.8 μs <
+
+ Memory estimate: 72.26 KiB, allocs estimate: 47.
+
+Bi-cubic interpolation, setup:
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  10.770 μs …  4.339 ms  ┊ GC (min … max): 0.00% … 99.13%
+ Time  (median):     11.500 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   12.477 μs ± 58.426 μs  ┊ GC (mean ± σ):  6.43% ±  1.37%
+
+       ▁▂▄▅▇▇█▇▅▄▃▁                                            
+  ▁▁▂▄▆████████████▇▆▆▅▄▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁ ▃
+  10.8 μs         Histogram: frequency by time        14.3 μs <
+
+ Memory estimate: 24.87 KiB, allocs estimate: 143.
+Bi-cubic interpolation, query:
+BenchmarkTools.Trial: 10000 samples with 997 evaluations per sample.
+ Range (min … max):  21.645 ns … 79.890 ns  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     21.745 ns              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   21.841 ns ±  0.926 ns  ┊ GC (mean ± σ):  0.00% ± 0.00%
+
+   ▅█▇▂                                                       ▁
+  ▇████▄▁▄▃▃▁▁▁▅▇█▆▄▁▁▁▁▁▁▁▁▁▁▁▃▁▁▁▁▁▃▃▄▃▅▆▆▆▅▆▅▅▅▅▅▅▆▆▆▅▆▅▅▆ █
+  21.6 ns      Histogram: log(frequency) by time      23.9 ns <
+
+ Memory estimate: 0 bytes, allocs estimate: 0.
+Non-lazy GPR, stationary kernel, RKHS system solve: 
+BenchmarkTools.Trial: 4624 samples with 1 evaluation per sample.
+ Range (min … max):  941.999 μs …   2.516 ms  ┊ GC (min … max):  0.00% … 56.86%
+ Time  (median):     965.854 μs               ┊ GC (median):     0.00%
+ Time  (mean ± σ):     1.079 ms ± 167.234 μs  ┊ GC (mean ± σ):  10.01% ± 11.96%
+
+  ▃█▇▆▄▂▂▁▁▁▂▁ ▁                                  ▄▆▆▅▃▁▁       ▂
+  ███████████████▇▅▆▆▃▅▅▁▅▃▄▁▁▃▃▃▁▁▁▅▁▁▁▃▁▁▁▁▁▁▁▁▃████████▇▇▆▅▆ █
+  942 μs        Histogram: log(frequency) by time       1.38 ms <
+
+ Memory estimate: 3.69 MiB, allocs estimate: 36.
+Non-lazy GPR, stationary kernel, query mean and variance: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  62.990 μs …  1.921 ms  ┊ GC (min … max): 0.00% … 95.32%
+ Time  (median):     64.570 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   65.349 μs ± 18.728 μs  ┊ GC (mean ± σ):  0.28% ±  0.95%
+
+        ▄█▇▆▂                                                  
+  ▁▁▂▃▅███████▆▅▄▄▅▅▅▅▄▄▃▃▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁ ▂
+  63 μs           Histogram: frequency by time          72 μs <
+
+ Memory estimate: 12.95 KiB, allocs estimate: 15.
+Non-lazy GPR, stationary kernel, query mean-only: 
+BenchmarkTools.Trial: 10000 samples with 9 evaluations per sample.
+ Range (min … max):  2.694 μs … 239.453 μs  ┊ GC (min … max): 0.00% … 95.19%
+ Time  (median):     2.940 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   3.189 μs ±   5.236 μs  ┊ GC (mean ± σ):  5.41% ±  3.55%
+
+       ▅███▅▂                                                  
+  ▂▂▂▄████████▆▅▅▅▄▃▃▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▂▁▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ ▃
+  2.69 μs         Histogram: frequency by time        4.39 μs <
+
+ Memory estimate: 9.79 KiB, allocs estimate: 13.
+Non-lazy GPR, stationary kernel, query variance-only: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  61.240 μs …  1.989 ms  ┊ GC (min … max): 0.00% … 95.64%
+ Time  (median):     64.809 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   65.101 μs ± 19.368 μs  ┊ GC (mean ± σ):  0.29% ±  0.96%
+
+                 ▃▅▆▄▁  ▁▅▇█▇▄▁                                
+  ▁▁▁▂▁▁▁▁▁▁▁▁▂▄▇█████▇████████▆▅▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁ ▃
+  61.2 μs         Histogram: frequency by time        70.1 μs <
+
+ Memory estimate: 9.79 KiB, allocs estimate: 13.
+Non-lazy GPR, stationary kernel, RKHS system solve: 
+BenchmarkTools.Trial: 3320 samples with 1 evaluation per sample.
+ Range (min … max):  1.331 ms …   2.683 ms  ┊ GC (min … max): 0.00% … 45.42%
+ Time  (median):     1.388 ms               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   1.505 ms ± 182.390 μs  ┊ GC (mean ± σ):  8.37% ±  9.76%
+
+   ▅█  ▂▃                                                      
+  ▃██▇▄██▅▃▃▃▃▃▃▃▂▂▂▂▁▁▂▂▂▁▁▁▂▁▂▁▁▁▁▁▁▂▁▁▂▂▃▅▆█▆▄▆▇▅▃▂▂▂▂▂▂▂▂ ▃
+  1.33 ms         Histogram: frequency by time        1.84 ms <
+
+ Memory estimate: 3.86 MiB, allocs estimate: 3249.
+Non-lazy GPR, stationary kernel, query mean and variance: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  60.570 μs …  2.106 ms  ┊ GC (min … max): 0.00% … 95.97%
+ Time  (median):     61.760 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   62.282 μs ± 20.617 μs  ┊ GC (mean ± σ):  0.32% ±  0.96%
+
+     ▂▃▅▆▇█████▇▇▆▅▄▃▂      ▁   ▁▁▂▁▂▂▂▁▂▁                    ▃
+  ▃▆██████████████████████▇██████████████████▇▇▇▆▇▆▄▅▅▆▄▄▄▃▄▂ █
+  60.6 μs      Histogram: log(frequency) by time      66.7 μs <
+
+ Memory estimate: 13.20 KiB, allocs estimate: 21.
+Non-lazy GPR, stationary kernel, query mean-only: 
+BenchmarkTools.Trial: 10000 samples with 8 evaluations per sample.
+ Range (min … max):  3.474 μs … 274.626 μs  ┊ GC (min … max): 0.00% … 95.69%
+ Time  (median):     3.715 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   3.946 μs ±   6.090 μs  ┊ GC (mean ± σ):  4.47% ±  2.94%
+
+       ▃▆▇█▆▄▃▄▁                                               
+  ▂▂▃▅██████████▆▅▄▃▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▂▁▁▁▁▁▂▂▂▂▂▂▂▂▂▂▂ ▃
+  3.47 μs         Histogram: frequency by time           5 μs <
+
+ Memory estimate: 10.04 KiB, allocs estimate: 19.
+Non-lazy GPR, stationary kernel, query variance-only: 
+BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+ Range (min … max):  60.230 μs …  2.258 ms  ┊ GC (min … max): 0.00% … 96.48%
+ Time  (median):     61.340 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   61.938 μs ± 22.131 μs  ┊ GC (mean ± σ):  0.35% ±  0.96%
+
+        ▂▅█▇█▅▂                                                
+  ▁▁▂▂▄▇████████▅▄▂▂▂▂▁▁▁▁▁▂▂▂▁▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁ ▂
+  60.2 μs         Histogram: frequency by time        66.7 μs <
+
+ Memory estimate: 10.04 KiB, allocs estimate: 19.
+

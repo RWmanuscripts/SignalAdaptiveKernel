@@ -21,9 +21,9 @@ const D = 2
 include("helpers/hopt.jl")
 
 # # from load from command line.
-save_dir, image_file_name, 
-N_workers_string, model_selection_string,
-down_factor_string = ARGS
+save_dir, image_file_name,
+    N_workers_string, model_selection_string,
+    down_factor_string = ARGS
 
 if !ispath(save_dir)
     mkpath(save_dir)
@@ -56,7 +56,7 @@ if aggregate_string == "sum"
     aggregate_symbol = :sum
 end
 
-if model_selection_string != "ML" 
+if model_selection_string != "ML"
 
     println("Unknown model_selection_string. Default to Marginal likelihood.")
     model_selection_string = "ML"
@@ -114,7 +114,7 @@ L = M # must be an even positive integer. The larger the flatter.
 if isodd(L)
     L = L + 1
 end
-x0, y0 = convert(T, 0.8*M), 1 + convert(T, 0.5)
+x0, y0 = convert(T, 0.8 * M), 1 + convert(T, 0.5)
 s_map = LGP.AdjustmentMap(x0, y0, b_x, L)
 
 # Warp map
@@ -143,7 +143,7 @@ ref_can_kernel = LGP.WendlandSplineKernel(
 
 # tuning parameters.
 max_abs_W = maximum(abs.(W))
-κ_ub = convert(T, (b_x*3) * 1/max_abs_W)
+κ_ub = convert(T, (b_x * 3) * 1 / max_abs_W)
 V = im_y
 
 lazy_hopt_config = LGP.LazyHCostConfig( # lazy-evaluation hyperparameter optimization config
@@ -163,19 +163,20 @@ optim_config = LGP.KernelOptimConfig{T}( # optim_config
 
 out = collect(
     compute_kodak_hp(
-        W, r, Xrs, ref_can_kernel,
-        model_selection_trait,
-        LGP.UseMetaheuristics(EVO),
-        lazy_hopt_config,
-        solver_config, optim_config,
-    )
-    for r in σr_factors
+            model,
+            W, r, Xrs, ref_can_kernel,
+            model_selection_trait,
+            LGP.UseMetaheuristics(EVO),
+            lazy_hopt_config,
+            solver_config, optim_config,
+        )
+        for r in σr_factors
 )
 # dek_vars, dek_star, sk_vars, sk_star, dek_ref
-dek_vars_set = map(xx->xx[begin], out)
-dek_score_set = map(xx->xx[begin+1], out)
-sk_vars_set = map(xx->xx[begin+2], out)
-sk_score_set = map(xx->xx[begin+3], out)
+dek_vars_set = map(xx -> xx[begin], out)
+dek_score_set = map(xx -> xx[begin + 1], out)
+sk_vars_set = map(xx -> xx[begin + 2], out)
+sk_score_set = map(xx -> xx[begin + 3], out)
 
 @show model_selection_trait
 dmat = [dek_vars_set dek_score_set sk_vars_set sk_score_set]
@@ -188,8 +189,8 @@ options = LGP.QueryOptions()
 
 up_factor = down_factor
 Xqrs = (
-    LinRange(first(Xrs[1]), last(Xrs[1]), round(Int, length(Xrs[1])*up_factor) ),
-    LinRange(first(Xrs[2]), last(Xrs[2]), round(Int, length(Xrs[2])*up_factor) ),
+    LinRange(first(Xrs[1]), last(Xrs[1]), round(Int, length(Xrs[1]) * up_factor)),
+    LinRange(first(Xrs[2]), last(Xrs[2]), round(Int, length(Xrs[2]) * up_factor)),
 )
 Nr, Nc = length.(Xqrs)
 
@@ -203,21 +204,21 @@ vqs_sk = reshape(vqs_sk_vec, Nr, Nc)
 # # DE kernel.
 q_dek = collect(
     upconvert_kodak_dek(
-        W, r, Xrs,
-        dek_vars_set[i],
-        worker_list, model, options,
-        Xqrs,
-    )
-    for (i,r) in Iterators.enumerate(σr_factors)
+            W, r, Xrs,
+            dek_vars_set[i],
+            worker_list, model, options,
+            Xqrs,
+        )
+        for (i, r) in Iterators.enumerate(σr_factors)
 )
-mqs_dek_set = map(xx->reshape(xx[begin], Nr, Nc), q_dek)
-vqs_dek_set = map(xx->reshape(xx[begin+1], Nr, Nc), q_dek)
+mqs_dek_set = map(xx -> reshape(xx[begin], Nr, Nc), q_dek)
+vqs_dek_set = map(xx -> reshape(xx[begin + 1], Nr, Nc), q_dek)
 
 # # Reference method: cubic itp.
 itp = Interpolations.interpolate(
     im_y,
-    Interpolations.BSpline( 
-        Interpolations.Cubic(    
+    Interpolations.BSpline(
+        Interpolations.Cubic(
             Interpolations.Line(Interpolations.OnGrid()),
         ),
     ),
@@ -231,7 +232,7 @@ etp = Interpolations.extrapolate(
 
 itp_Xq = collect(
     etp(x...)
-    for x in Iterators.product(Xqrs...)
+        for x in Iterators.product(Xqrs...)
 )
 
 # # reference image.
@@ -250,7 +251,7 @@ out_disk = (
 
 save_name = replace(
     "$image_file_name",
-    ".png"=>"_$(model_selection_string)",
+    ".png" => "_$(model_selection_string)",
 )
 serialize(
     joinpath(save_dir, "upconvert_$save_name"),

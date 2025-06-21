@@ -1,8 +1,7 @@
-
 function optimize_hp(
-    case_label, alg_trait, ref_dek, ms_trait, model,
-    config, solver_config, a_lb, a_ub, κ_ub;
-    width_factor = 1,
+        case_label, alg_trait, ref_dek, ms_trait, model,
+        config, solver_config, a_lb, a_ub, κ_ub;
+        width_factor = 1,
     )
 
     if case_label == "1" || case_label == "2"
@@ -29,7 +28,7 @@ function optimize_hp(
     # stationary.
     lbs = [a_lb;]
     ubs = [a_ub;]
-    p0s = collect( [x;] for x in a0s )
+    p0s = collect([x;] for x in a0s)
 
     sk_vars, sk_star = LGP.optimize_kernel_hp(
         alg_trait,
@@ -51,7 +50,7 @@ function optimize_hp(
     p0s = collect.(
         vec(collect(Iterators.product(a0s, κ0s)))
     )
-    
+
     dek_vars, dek_star = LGP.optimize_kernel_hp(
         alg_trait,
         ref_dek,
@@ -67,15 +66,15 @@ end
 
 
 function compute_kodak_warpmap(
-    W::Array{T}, sigma_r_factor, Xrs, 
-    ) where T <: AbstractFloat
+        W::Array{T}, sigma_r_factor, Xrs,
+    ) where {T <: AbstractFloat}
 
-    σr = maximum(abs.(W))*sigma_r_factor
+    σr = maximum(abs.(W)) * sigma_r_factor
     @show sigma_r_factor, σr
 
     if σr > 0 && σs > 0
         W = LocalFilters.bilateralfilter(
-            W, σr, σs, 2*round(Int,3*σs)+1,
+            W, σr, σs, 2 * round(Int, 3 * σs) + 1,
         )
     end
     warpmap = LGP.create_warp_map(
@@ -86,12 +85,12 @@ function compute_kodak_warpmap(
 end
 
 function compute_kodak_hp(
-    W::Array{T}, sigma_r_factor, Xrs, ref_can_kernel,
-    model_selection_trait,
-    alg_trait,
-    lazy_hopt_config,
-    solver_config, optim_config,
-    ) where T
+        model, W::Array{T}, sigma_r_factor, Xrs, ref_can_kernel,
+        model_selection_trait,
+        alg_trait,
+        lazy_hopt_config,
+        solver_config, optim_config,
+    ) where {T}
 
     Random.seed!(25) # for repeatable results.
 
@@ -115,10 +114,40 @@ function compute_kodak_hp(
     return dek_vars, dek_star, sk_vars, sk_star
 end
 
+function compute_kodak_hp_timing(
+        model, W::Array{T}, sigma_r_factor, Xrs, ref_can_kernel,
+        model_selection_trait,
+        alg_trait,
+        lazy_hopt_config,
+        solver_config, optim_config,
+    ) where {T}
+
+    Random.seed!(25) # for repeatable results.
+
+    #
+    warpmap = compute_kodak_warpmap(W, sigma_r_factor, Xrs)
+
+    dek_ref = LGP.DEKernel(
+        ref_can_kernel, warpmap, zero(T),
+    )
+
+    dek_vars, dek_star, sk_vars, sk_star = LGP.optimize_kernel_hp_separately_timing(
+        alg_trait,
+        dek_ref,
+        model_selection_trait,
+        model,
+        lazy_hopt_config,
+        solver_config,
+        optim_config,
+    )
+
+    return dek_vars, dek_star, sk_vars, sk_star
+end
+
 function upconvert_kodak_sk(
-    sk_vars,
-    worker_list, model, options,
-    Xqrs,
+        sk_vars,
+        worker_list, model, options,
+        Xqrs,
     )
 
     kernel_param_sk = sk_vars[begin]
@@ -134,8 +163,8 @@ function upconvert_kodak_sk(
     # # SQuery: tationary kernel
     println("Running: query stationary")
     out = LGP.query_dc(Xqrs, worker_list)
-    mqs_sta = map(xx->xx[begin], out)
-    vqs_sta = map(xx->xx[begin+1], out)
+    mqs_sta = map(xx -> xx[begin], out)
+    vqs_sta = map(xx -> xx[begin + 1], out)
 
     LGP.free_query_dc(worker_list)
 
@@ -144,10 +173,10 @@ end
 
 
 function upconvert_kodak_dek(
-    W, sigma_r_factor, Xrs,
-    dek_vars,
-    worker_list, model, options,
-    Xqrs,
+        W, sigma_r_factor, Xrs,
+        dek_vars,
+        worker_list, model, options,
+        Xqrs,
     )
 
     warpmap = compute_kodak_warpmap(W, sigma_r_factor, Xrs)
@@ -166,16 +195,14 @@ function upconvert_kodak_dek(
     LGP.setup_query_dc(
         worker_list, model, dek, options, cvars,
     )
-    
+
     # # SQuery: tationary kernel
     println("Running: query dek")
     out = LGP.query_dc(Xqrs, worker_list)
-    mqs_dek = map(xx->xx[begin], out)
-    vqs_dek = map(xx->xx[begin+1], out)
+    mqs_dek = map(xx -> xx[begin], out)
+    vqs_dek = map(xx -> xx[begin + 1], out)
 
     LGP.free_query_dc(worker_list)
 
     return mqs_dek, vqs_dek
 end
-
-

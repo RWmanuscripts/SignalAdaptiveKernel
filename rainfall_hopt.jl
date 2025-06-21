@@ -1,4 +1,3 @@
-
 using Pkg
 Pkg.activate(".")
 
@@ -37,7 +36,7 @@ f_calls_limit = 1_000
 
 ms_trait = LGP.MarginalLikelihood()
 
-σ² = convert(T, 1e-3)
+σ² = convert(T, 1.0e-3)
 
 # # Load data
 
@@ -46,13 +45,13 @@ df = CSV.read(data_path, DF.DataFrame)
 
 X0 = collect(
     [
-        df.LATITUDE[n];
-        df.LONGITUDE[n];
-    ]
-    for n in eachindex(df.LATITUDE)
+            df.LATITUDE[n];
+            df.LONGITUDE[n];
+        ]
+        for n in eachindex(df.LATITUDE)
 )
 y0 = convert(Vector{T}, df.PRCP ./ 10)
-X, y = SL.avgduplicates(X0, y0, eps(T)*10)
+X, y = SL.avgduplicates(X0, y0, eps(T) * 10)
 X_mat = reshape(
     collect(Iterators.flatten(X)),
     D, length(X),
@@ -84,13 +83,9 @@ ref_dek = LGP.DEKernel(
     LGP.SqExpKernel(one(T)), warpmap, zero(T),
 )
 
-a_lb = convert(T, 1e-3)
+a_lb = convert(T, 1.0e-3)
 a_ub = convert(T, 60)
-N_initials_a = 100
-
-κ_lb = zero(T)
-κ_ub = maximum(abs.(W))*100 # increase this until the optimization solution is not on this upper bound.
-N_initials_κ = 1000
+κ_ub = maximum(abs.(W)) * 100
 
 ######
 
@@ -122,7 +117,7 @@ println()
 Random.seed!(25)
 println("Running: optimize_kernel_hp, sk")
 sk_ref = ref_dek.canonical
-p0s = collect( [x;] for x in LinRange(a_lb, a_ub, 100) )
+p0s = collect([x;] for x in LinRange(a_lb, a_ub, 100))
 sk_vars, sk_star = LGP.optimize_kernel_hp(
     LGP.UseMetaheuristics(EVO),
     sk_ref,
@@ -163,17 +158,17 @@ println()
 
 tag = "ML"
 
-using Serialization
-serialize(
-    joinpath(save_results_dir, "CA_rainfall_hp_$(tag)"),
-    (
-        dek_vars_sep, dek_star_sep,
-        sk_vars_sep, sk_star_sep,
-        dek_vars, dek_star,
-        sk_vars, sk_star,
-        a_lb, a_ub, κ_ub, width_factor,
-    )
-)
+# using Serialization
+# serialize(
+#     joinpath(save_results_dir, "CA_rainfall_hp_$(tag)"),
+#     (
+#         dek_vars_sep, dek_star_sep,
+#         sk_vars_sep, sk_star_sep,
+#         dek_vars, dek_star,
+#         sk_vars, sk_star,
+#         a_lb, a_ub, κ_ub, width_factor,
+#     )
+# )
 
 
 nothing

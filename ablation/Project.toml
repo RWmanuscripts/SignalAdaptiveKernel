@@ -1,0 +1,5 @@
+[deps]
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
+LazyGPR = "b41d7b93-16fb-427a-b53b-75fbbf0d305b"
+RKHSRegularization = "da5e2df6-2169-4d6c-a246-0eaf9ec197ca"
+TestImages = "5e47fb64-e119-507b-a336-dd2b206d9990"
