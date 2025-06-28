@@ -210,22 +210,22 @@ w_Xq_red = dek1.warpmap.(Xqs_red)
 
 # up-conversion result for this region.
 println("Querying SK, red region")
-# @time query_sk_red = collect(
-#     LGP.queryGP(collect(x), sk1, gp_sk1)
-#         for x in Iterators.product(Xqrs_red...)
-# )
-# mqs_sk_red = map(xx -> xx[1], query_sk_red)
-# vqs_sk_red = map(xx -> xx[2], query_sk_red)
+@time query_sk_red = collect(
+    LGP.queryGP(collect(x), sk1, gp_sk1)
+        for x in Iterators.product(Xqrs_red...)
+)
+mqs_sk_red = map(xx -> xx[1], query_sk_red)
+vqs_sk_red = map(xx -> xx[2], query_sk_red)
 
-# println("Querying DEK, red region")
-# @time query_dek_red = collect(
-#     LGP.queryGP(collect(x), dek1, gp_dek1)
-#         for x in Iterators.product(Xqrs_red...)
-# )
-# mqs_dek_red = map(xx -> xx[1], query_dek_red)
-# vqs_dek_red = map(xx -> xx[2], query_dek_red)
-# # 90 sec each.
-# serialize(joinpath("results", "region_red_upconvert"), (mqs_sk_red, vqs_sk_red, mqs_dek_red, vqs_dek_red))
+println("Querying DEK, red region")
+@time query_dek_red = collect(
+    LGP.queryGP(collect(x), dek1, gp_dek1)
+        for x in Iterators.product(Xqrs_red...)
+)
+mqs_dek_red = map(xx -> xx[1], query_dek_red)
+vqs_dek_red = map(xx -> xx[2], query_dek_red)
+# 90 sec each.
+serialize(joinpath("results", "region_red_upconvert"), (mqs_sk_red, vqs_sk_red, mqs_dek_red, vqs_dek_red))
 
 mqs_sk_red, vqs_sk_red, mqs_dek_red, vqs_dek_red = deserialize(joinpath("results", "region_red_upconvert"))
 
@@ -255,23 +255,23 @@ kq_dek_cyan = k_dek_cyan.(Xqs_cyan)
 w_Xq_cyan = dek1.warpmap.(Xqs_cyan)
 
 # up-conversion result for this region.
-# println("Querying SK, cyan region")
-# @time query_sk_cyan = collect(
-#     LGP.queryGP(collect(x), sk1, gp_sk1)
-#         for x in Iterators.product(Xqrs_cyan...)
-# )
-# mqs_sk_cyan = map(xx -> xx[1], query_sk_cyan)
-# vqs_sk_cyan = map(xx -> xx[2], query_sk_cyan)
+println("Querying SK, cyan region")
+@time query_sk_cyan = collect(
+    LGP.queryGP(collect(x), sk1, gp_sk1)
+        for x in Iterators.product(Xqrs_cyan...)
+)
+mqs_sk_cyan = map(xx -> xx[1], query_sk_cyan)
+vqs_sk_cyan = map(xx -> xx[2], query_sk_cyan)
 
-# println("Querying DEK, cyan region")
-# @time query_dek_cyan = collect(
-#     LGP.queryGP(collect(x), dek1, gp_dek1)
-#         for x in Iterators.product(Xqrs_cyan...)
-# )
-# mqs_dek_cyan = map(xx -> xx[1], query_dek_cyan)
-# vqs_dek_cyan = map(xx -> xx[2], query_dek_cyan)
-# # 90 sec each.
-# serialize(joinpath("results", "region_cyan_upconvert"), (mqs_sk_cyan, vqs_sk_cyan, mqs_dek_cyan, vqs_dek_cyan))
+println("Querying DEK, cyan region")
+@time query_dek_cyan = collect(
+    LGP.queryGP(collect(x), dek1, gp_dek1)
+        for x in Iterators.product(Xqrs_cyan...)
+)
+mqs_dek_cyan = map(xx -> xx[1], query_dek_cyan)
+vqs_dek_cyan = map(xx -> xx[2], query_dek_cyan)
+# 90 sec each.
+serialize(joinpath("results", "region_cyan_upconvert"), (mqs_sk_cyan, vqs_sk_cyan, mqs_dek_cyan, vqs_dek_cyan))
 
 mqs_sk_cyan, vqs_sk_cyan, mqs_dek_cyan, vqs_dek_cyan = deserialize(joinpath("results", "region_cyan_upconvert"))
 
