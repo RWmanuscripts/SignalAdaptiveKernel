@@ -1,10 +1,13 @@
 # Timing:
+const T = Float64
+time_normalizing_constant = 1000 # micro sectonds.
 
 down_factor_inp = ARGS[1]
 down_factor = parse(Int, down_factor_inp)
+
+# downsample/up-conversion factor. # for non-command line use.
 #down_factor = 10
 
-println()
 @show down_factor
 
 # # Setup
@@ -13,7 +16,7 @@ import Pkg
 let
     pkgs = ["PythonPlot"]
     for pkg in pkgs
-        if Base.find_package(pkg) === nothing
+        if isnothing(Base.find_package(pkg))
             Pkg.add(pkg)
         end
     end
@@ -33,8 +36,6 @@ import LazyGPR as LGP
 
 import VisualizationBag as VIZ
 
-
-const T = Float64
 const D = 2;
 
 #Data preparation
@@ -51,18 +52,6 @@ model_selection_string = "ML" # "ML" means we use marginal likelihood for the hy
 #see compute_kodak_hp() and compute_kodak_warpmap() from the helper script `hopt.jl` to see how `σr_factor` is used to compute `σr`, the bilateral filter intensity standard deviation.
 σr_factor = convert(T, 4.0)
 σs = one(T); # The spatial standard deviation for the bilateral filter.
-
-# Lazy-evaluation GPR model parameters:
-σ² = convert(T, 0.001)
-b_x = convert(T, 6);
-
-#For hyperparameter optimization
-f_calls_limit = 1_000 # soft-constraint on the number of objective function evaluations during optimization.
-N_neighbourhoods = 50 # The maximum number of local datasets we use in the objective function is this number times two. This is `M` in our manuscript.
-a_lb = convert(T, 0.001) # lower bound for the bandwidth parameter.
-a_ub = one(T)
-N_initials_a = 100 # Number of initial guesses for the a, bandwidth parameter.
-N_initials_κ = 100; # Similarly for the κ, gain parameter.
 
 #how the warp samples are combined across different graph spectrums.
 aggregate_symbol = :sum # An alternative option is :sum_normalized.
@@ -86,21 +75,14 @@ include("helpers/utils.jl")
 include("helpers/image.jl");
 
 # Setup data.
+σ² = convert(T, 0.001)
+
 data_path = joinpath(data_dir, image_file_name)
 im_y, image_ranges, _ = getdownsampledimage(
     T, data_path, down_factor;
     discard_pixels = 0,
 )
 Xrs = Tuple(image_ranges);
-
-# adjustment map.
-M = floor(Int, b_x) # base this on b_x.
-L = M # must be an even positive integer. The larger the flatter.
-if isodd(L)
-    L = L + 1
-end
-x0, y0 = convert(T, 0.8 * M), 1 + convert(T, 0.5)
-s_map = LGP.AdjustmentMap(x0, y0, b_x, L);
 
 # Warp samples, from the unit grid graph.
 warp_config = GSP.WarpConfig{T}(
@@ -112,16 +94,11 @@ W = LGP.create_grid_warp_samples(
     warp_config,
 );
 
-# # Kerenl hyperparameter fitting
-
-# Assemble model container.
-model = LGP.LazyGP(
-    b_x, s_map,
-    LGP.GPData(σ², Xrs, im_y),
-);
+sigma_r_factor = T(3)
+warpmap = compute_kodak_warpmap(W, sigma_r_factor, Xrs)
 
 # # Query
-load_path = joinpath("results", "timing_hp_downfactor_$(down_factor)")
+load_path = joinpath("results", "timing_hp_single_downfactor_$(down_factor)")
 down_factor2,
     dek_vars, dek_score, sk_vars, sk_score,
     dek1_vars, dek1_score, sk1_vars, sk1_score, = deserialize(load_path)
@@ -144,110 +121,6 @@ Nr, Nc = length.(Xqrs);
 Xqs = collect(collect(x) for x in Iterators.product(Xqrs...))
 xq_test = Xqs[round(Int, length(Xqs) / 2)]
 
-# lazy GPR: Canonical Kernel Model
-
-sk = LGP.WendlandSplineKernel(
-    LGP.Order2(), sk_vars[1], 3,
-)
-out = LGP.lazyquery2(
-    Xqs[begin], model, sk,
-    LGP.QueryOptions(
-        compute_mean = LGP.Enable(),
-        compute_variance = LGP.Enable(),
-    ),
-    nothing,
-)
-println("Lazy query: stationary kernel, mean and variance:")
-q = @benchmark LGP.lazyquery2(
-    $xq_test, $model, $sk,
-    LGP.QueryOptions(
-        compute_mean = LGP.Enable(),
-        compute_variance = LGP.Enable(),
-    ),
-    nothing,
-)
-display(q)
-println("Lazy query: stationary kernel, mean-only:")
-q = @benchmark LGP.lazyquery2(
-    $xq_test, $model, $sk,
-    LGP.QueryOptions(
-        compute_mean = LGP.Enable(),
-        compute_variance = LGP.Disable(),
-    ),
-    nothing,
-)
-display(q)
-println("Lazy query: stationary kernel, variance-only:")
-q = @benchmark LGP.lazyquery2(
-    $xq_test, $model, $sk,
-    LGP.QueryOptions(
-        compute_mean = LGP.Disable(),
-        compute_variance = LGP.Enable(),
-    ),
-    nothing,
-)
-display(q)
-println()
-
-#@assert 1 == 32
-
-# DE Kernel Model
-sigma_r_factor = T(3)
-
-warpmap = compute_kodak_warpmap(W, sigma_r_factor, Xrs)
-
-kernel_param, κ = dek_vars[1], dek_vars[2]
-canonical_kernel = LGP.WendlandSplineKernel(
-    LGP.Order2(), kernel_param, 3,
-)
-dek = LGP.DEKernel(canonical_kernel, warpmap, κ)
-
-println("Lazy query: DE kernel, setup cache:")
-cvars = LGP.computecachevars(dek, model)
-q = @benchmark LGP.computecachevars(dek, model)
-display(q)
-
-out = LGP.lazyquery2(
-    Xqs[begin], model, dek,
-    LGP.QueryOptions(
-        compute_mean = LGP.Enable(),
-        compute_variance = LGP.Enable(),
-    ),
-    cvars,
-)
-
-println("Lazy query: DE kernel, mean and variance:")
-q = @benchmark LGP.lazyquery2(
-    $xq_test, $model, $dek,
-    LGP.QueryOptions(
-        compute_mean = LGP.Enable(),
-        compute_variance = LGP.Enable(),
-    ),
-    cvars,
-)
-display(q)
-println("Lazy query: DE kernel, mean-only:")
-q = @benchmark LGP.lazyquery2(
-    $xq_test, $model, $dek,
-    LGP.QueryOptions(
-        compute_mean = LGP.Enable(),
-        compute_variance = LGP.Disable(),
-    ),
-    cvars,
-)
-display(q)
-println("Lazy query: DE kernel, variance-only:")
-q = @benchmark LGP.lazyquery2(
-    $xq_test, $model, $dek,
-    LGP.QueryOptions(
-        compute_mean = LGP.Disable(),
-        compute_variance = LGP.Enable(),
-    ),
-    cvars,
-)
-display(q)
-println()
-
 # # Non-lazy evaluation GPR
 y = vec(im_y)
 X = vec(collect(collect(x) for x in Iterators.product(Xrs...)))
@@ -258,55 +131,63 @@ sk1 = LGP.SqExpKernel(sk1_vars[begin])
 println("Non-lazy GPR, stationary kernel, RKHS system solve: ")
 gp_sk1 = LGP.fitGP(X, y, σ², sk1)
 q = @benchmark LGP.fitGP($X, $y, $σ², $sk1)
+sk_rkhs = median(q.times) / time_normalizing_constant
 display(q)
 
 println("Non-lazy GPR, stationary kernel, query mean and variance: ")
 LGP.queryGP(xq_test, sk1, gp_sk1)
 q = @benchmark LGP.queryGP($xq_test, $sk1, $gp_sk1)
+sk_both = median(q.times) / time_normalizing_constant
 display(q)
 
 buf = zeros(T, length(X))
 println("Non-lazy GPR, stationary kernel, query mean-only: ")
 LGP.querymean(xq_test, sk1, gp_sk1)
 q = @benchmark LGP.querymean($xq_test, $sk1, $gp_sk1)
+sk_mean = median(q.times) / time_normalizing_constant
 display(q)
 
 println("Non-lazy GPR, stationary kernel, query variance-only: ")
 LGP.queryGPvariance!(buf, xq_test, sk1, gp_sk1)
 q = @benchmark LGP.queryGPvariance!($buf, $xq_test, $sk1, $gp_sk1)
+sk_var = median(q.times) / time_normalizing_constant
 display(q)
 
-#@assert 3 == 4444
 
-# ## Stationary kernel
+# ## DE kernel
 kernel_param1, κ1 = dek1_vars[begin], dek1_vars[end]
 
 canonical_kernel1 = LGP.WendlandSplineKernel(
-    LGP.Order2(), kernel_param, 3,
+    LGP.Order2(), kernel_param1, 3,
 )
 dek1 = LGP.DEKernel(canonical_kernel1, warpmap, κ1)
 
-println("Non-lazy GPR, stationary kernel, RKHS system solve: ")
+println("Non-lazy GPR, DE kernel, RKHS system solve: ")
 gp_dek1 = LGP.fitGP(X, y, σ², dek1)
 q = @benchmark LGP.fitGP($X, $y, $σ², $dek1)
+dek_rkhs = median(q.times) / time_normalizing_constant
 display(q)
 
-println("Non-lazy GPR, stationary kernel, query mean and variance: ")
+println("Non-lazy GPR, DE kernel, query mean and variance: ")
 LGP.queryGP(xq_test, dek1, gp_dek1)
 q = @benchmark LGP.queryGP($xq_test, $dek1, $gp_dek1)
+dek_both = median(q.times) / time_normalizing_constant
 display(q)
 
 buf = zeros(T, length(X))
-println("Non-lazy GPR, stationary kernel, query mean-only: ")
+println("Non-lazy GPR, DE kernel, query mean-only: ")
 LGP.querymean(xq_test, dek1, gp_dek1)
 q = @benchmark LGP.querymean($xq_test, $dek1, $gp_dek1)
+dek_mean = median(q.times) / time_normalizing_constant
 display(q)
 
-println("Non-lazy GPR, stationary kernel, query variance-only: ")
+println("Non-lazy GPR, DE kernel, query variance-only: ")
 LGP.queryGPvariance!(buf, xq_test, dek1, gp_dek1)
 q = @benchmark LGP.queryGPvariance!($buf, $xq_test, $dek1, $gp_dek1)
+dek_var = median(q.times) / time_normalizing_constant
 display(q)
-
 println()
+
+serialize(joinpath("results", "time_query_1_down_$(down_factor)"), (sk_rkhs, sk_both, sk_mean, sk_var, dek_rkhs, dek_both, dek_mean, dek_var))
 
 nothing

@@ -13,7 +13,7 @@ let
         "Markdown", "Tables", "MarkdownTables", "FileIO",
     ]
     for pkg in pkgs
-        if Base.find_package(pkg) === nothing
+        if isnothing(Base.find_package(pkg))
             Pkg.add(pkg)
         end
     end

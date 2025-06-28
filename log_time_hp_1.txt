@@ -1,0 +1,117 @@
+
+down_factor = 2
+julia> include("time_hopt.jl")
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.825005082139049)
+(sigma_r_factor, σr) = (4.0, 2.825005082139049)
+Stationary kernel:
+  2.606963 seconds (1.18 M allocations: 105.136 MiB, 0.25% gc time, 7 lock conflicts)
+DE kernel:
+  2.713473 seconds (1.13 M allocations: 66.345 MiB, 0.39% gc time)
+Single GPR hyperparameter optimization
+(sigma_r_factor, σr) = (4.0, 2.825005082139049)
+(sigma_r_factor, σr) = (4.0, 2.825005082139049)
+Stationary kernel:
+1142.685557 seconds (138.71 k allocations: 817.785 GiB, 1.45% gc time)
+DE kernel:
+1458.626807 seconds (129.48 k allocations: 816.384 GiB, 1.11% gc time)
+(dek1_vars, dek1_score, sk1_vars, sk1_score) = ([0.12366363886753096, 11.180890848740699], -28251.600223103924, [0.12366363886753096], -24585.019617710706)
+
+down_factor = 4
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.278874944810028)
+(sigma_r_factor, σr) = (4.0, 2.278874944810028)
+Stationary kernel:
+  2.362787 seconds (1.16 M allocations: 86.567 MiB, 0.36% gc time)
+DE kernel:
+  2.452463 seconds (1.13 M allocations: 66.384 MiB, 0.22% gc time)
+Single GPR hyperparameter optimization
+(sigma_r_factor, σr) = (4.0, 2.278874944810028)
+(sigma_r_factor, σr) = (4.0, 2.278874944810028)
+Stationary kernel:
+ 44.747426 seconds (136.31 k allocations: 53.214 GiB, 4.76% gc time)
+DE kernel:
+ 57.273123 seconds (131.85 k allocations: 53.138 GiB, 3.33% gc time)
+(dek1_vars, dek1_score, sk1_vars, sk1_score) = ([0.14595199923751329, 8.405209074148667], -5539.963695671406, [0.14595199923751329], -4954.52791672738)
+
+down_factor = 6
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.411928768693615)
+(sigma_r_factor, σr) = (4.0, 2.411928768693615)
+Stationary kernel:
+  1.454442 seconds (1.14 M allocations: 76.730 MiB, 0.60% gc time)
+DE kernel:
+  1.500784 seconds (1.14 M allocations: 66.528 MiB, 0.31% gc time)
+Single GPR hyperparameter optimization
+(sigma_r_factor, σr) = (4.0, 2.411928768693615)
+(sigma_r_factor, σr) = (4.0, 2.411928768693615)
+Stationary kernel:
+  6.735577 seconds (137.71 k allocations: 10.322 GiB, 6.99% gc time)
+DE kernel:
+  9.259244 seconds (135.63 k allocations: 10.313 GiB, 5.10% gc time)
+(dek1_vars, dek1_score, sk1_vars, sk1_score) = ([0.1597568686769928, 7.861732053771441], -1987.5435705373807, [0.1597568686769928], -1810.2284850412761)
+
+down_factor = 8
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.6241972138149676)
+(sigma_r_factor, σr) = (4.0, 2.6241972138149676)
+Stationary kernel:
+  0.995609 seconds (1.15 M allocations: 72.718 MiB, 0.43% gc time, 1 lock conflict)
+DE kernel:
+  1.011021 seconds (1.12 M allocations: 66.192 MiB, 0.56% gc time)
+Single GPR hyperparameter optimization
+(sigma_r_factor, σr) = (4.0, 2.6241972138149676)
+(sigma_r_factor, σr) = (4.0, 2.6241972138149676)
+Stationary kernel:
+  2.392001 seconds (135.72 k allocations: 3.461 GiB, 12.10% gc time)
+DE kernel:
+  2.713047 seconds (140.01 k allocations: 3.460 GiB, 4.53% gc time)
+(dek1_vars, dek1_score, sk1_vars, sk1_score) = ([0.16661639338209827, 7.209211705644023], -1019.1505415601437, [0.16661639338209824], -954.5306890412272)
+
+down_factor = 10
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.114798535949072)
+(sigma_r_factor, σr) = (4.0, 2.114798535949072)
+Stationary kernel:
+  0.744665 seconds (1.14 M allocations: 69.757 MiB, 1.70% gc time, 2 lock conflicts)
+DE kernel:
+  0.753771 seconds (1.13 M allocations: 66.392 MiB, 0.86% gc time)
+Single GPR hyperparameter optimization
+(sigma_r_factor, σr) = (4.0, 2.114798535949072)
+(sigma_r_factor, σr) = (4.0, 2.114798535949072)
+Stationary kernel:
+  0.938397 seconds (139.70 k allocations: 1.316 GiB, 4.60% gc time)
+DE kernel:
+  1.171047 seconds (133.24 k allocations: 1.317 GiB, 3.95% gc time)
+(dek1_vars, dek1_score, sk1_vars, sk1_score) = ([0.16886250303619998, 7.373917318608048], -621.3588614007414, [0.16886250303619998], -572.3507201737507)
+

@@ -3,7 +3,15 @@
 down_factor_inp = ARGS[1]
 down_factor = parse(Int, down_factor_inp)
 
-# down_factor = 2; # downsample/up-conversion factor. # for non-command line use.
+N_neighbourhoods_inp = ARGS[2]
+N_neighbourhoods = parse(Int, N_neighbourhoods_inp)
+
+# downsample/up-conversion factor. # for non-command line use.
+#down_factor = 2
+# N_neighbourhoods = 50 # The maximum number of local datasets we use in the objective function is this number times two. This is `M` in our manuscript.
+
+
+@show down_factor, N_neighbourhoods
 
 # # Setup
 # Install dependencies
@@ -11,7 +19,7 @@ import Pkg
 let
     pkgs = ["PythonPlot"]
     for pkg in pkgs
-        if Base.find_package(pkg) === nothing
+        if isnothing(Base.find_package(pkg))
             Pkg.add(pkg)
         end
     end
@@ -63,7 +71,6 @@ b_x = convert(T, 6);
 
 #For hyperparameter optimization
 f_calls_limit = 1_000 # soft-constraint on the number of objective function evaluations during optimization.
-N_neighbourhoods = 50 # The maximum number of local datasets we use in the objective function is this number times two. This is `M` in our manuscript.
 a_lb = convert(T, 0.001) # lower bound for the bandwidth parameter.
 a_ub = one(T)
 N_initials_a = 100 # Number of initial guesses for the a, bandwidth parameter.
@@ -191,61 +198,25 @@ sleep(3)
 
 # The gain κ and canonical kernel bandwidth a, for the DE kernel:
 κ, a_DE = dek_vars
+@show dek_vars
 
 # The DE kernel's optimization solution's objective score:
 dek_score
 
 # The stationary kernel's bandwidth (should be the same as the canonical kernel if width_factor = 1 for KernelOptimConfig())
-sk_vars
+@show sk_vars
 
 # The stationary kernel's optimization solution's objective score:
 sk_score
 
-# ## Timing for non-lazy evaluation GPR
-y = vec(im_y)
-X = vec(collect(collect(x) for x in Iterators.product(Xrs...)))
-
-println("Single GPR hyperparameter optimization")
-gp_data = LGP.GPData(σ², X, y)
-
-Random.seed!(25)
-# sk1_vars, sk1_star = LGP.optimize_kernel_hp_separately_timing(
-#     LGP.UseMetaheuristics(EVO),
-#     ref_can_kernel,
-#     model_selection_trait,
-#     gp_data,
-#     LGP.HCostConfig(),
-#     solver_config,
-#     optim_config,
-# )
-# @show sk1_vars, sk1_star
-dek1_vars, dek1_score, sk1_vars, sk1_score = compute_kodak_hp(
-    gp_data, W, σr_factor, Xrs, ref_can_kernel,
-    model_selection_trait,
-    LGP.UseMetaheuristics(EVO),
-    LGP.HCostConfig(),
-    solver_config, optim_config,
-);
-sleep(3)
-compute_kodak_hp_timing(
-    gp_data, W, σr_factor, Xrs, ref_can_kernel,
-    model_selection_trait,
-    LGP.UseMetaheuristics(EVO),
-    LGP.HCostConfig(),
-    solver_config, optim_config,
-);
-@show dek1_vars, dek1_score, sk1_vars, sk1_score
-sleep(3)
-println()
-
 # # Save hyperparameters
-save_path = joinpath("results", "timing_hp_downfactor_$(down_factor)")
+save_path = joinpath("results", "timing_hp_lazy_downfactor_$(down_factor)_neighbourhood_$(N_neighbourhoods)")
 serialize(
     save_path,
     (
         down_factor,
+        N_neighbourhoods,
         dek_vars, dek_score, sk_vars, sk_score,
-        dek1_vars, dek1_score, sk1_vars, sk1_score,
     ),
 )
 

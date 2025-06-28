@@ -99,7 +99,7 @@ PLT.legend()
 PLT.xlabel("x₁")
 PLT.ylabel("x₂")
 if save_fig
-    PLT.savefig("figs/manuscript/pw_inputs_y2.png", bbox_inches = "tight")
+    PLT.savefig(joinpath("figs", "manuscript", "pw_inputs_y2.png"), bbox_inches = "tight")
 end
 
 PLT.figure(fig_num)
@@ -138,7 +138,7 @@ PLT.xlabel("x₁")
 PLT.ylabel("Function output")
 PLT.title("Predictive posterior mean, x₂ = $(y_val)")
 if save_fig
-    PLT.savefig("figs/manuscript/pw_results_y2.png", bbox_inches = "tight")
+    PLT.savefig(joinpath("figs", "manuscript", "pw_results_y2.png"), bbox_inches = "tight")
 end
 
 # ## Set the x2 coordinate to y_val == 0
@@ -155,7 +155,7 @@ PLT.legend()
 PLT.xlabel("x₁")
 PLT.ylabel("x₂")
 if save_fig
-    PLT.savefig("figs/manuscript/pw_inputs_y0.png", bbox_inches = "tight")
+    PLT.savefig(joinpath("figs", "manuscript", "pw_inputs_y0.png"), bbox_inches = "tight")
 end
 
 PLT.figure(fig_num, figsize = fig_size, dpi = dpi)
@@ -194,7 +194,7 @@ PLT.xlabel("x₁")
 PLT.ylabel("Function output")
 PLT.title("Predictive posterior mean, x₂ = $(y_val)")
 if save_fig
-    PLT.savefig("figs/manuscript/pw_results_y0.png", bbox_inches = "tight")
+    PLT.savefig(joinpath("figs", "manuscript", "pw_results_y0.png"), bbox_inches = "tight")
 end
 
 nothing

@@ -1,4 +1,3 @@
-
 T = Float64
 D = 2;
 
@@ -12,7 +11,7 @@ Pkg.activate(".")
 let
     pkgs = ["PlotlyLight", "ColorSchemes", "VisualizationBag", "SpatialGSP"]
     for pkg in pkgs
-        if Base.find_package(pkg) === nothing
+        if isnothing(Base.find_package(pkg))
             Pkg.add(pkg)
         end
     end
@@ -32,12 +31,12 @@ Random.seed!(25);
 
 #src scatter data
 N = 20
-X = collect( randn(T, D) for _ = 1:N )
+X = collect(randn(T, D) for _ in 1:N)
 
 #src grid-data
 if tag == "grid"
-    X0 = vec(collect( Iterators.product(-5:4,-3:6) ))
-    X = collect( convert(Vector{T}, collect(x)) for x in X0)
+    X0 = vec(collect(Iterators.product(-5:4, -3:6)))
+    X = collect(convert(Vector{T}, collect(x)) for x in X0)
     N = length(X)
 end
 
@@ -60,8 +59,8 @@ edge_h = GSP.getedgecoord(G, X, 1) # horizontal
 edge_v = GSP.getedgecoord(G, X, 2) # vertical
 
 # Create nodes
-x_h = map(xx->xx[begin], X)
-x_v = map(xx->xx[begin+1], X)
+x_h = map(xx -> xx[begin], X)
+x_v = map(xx -> xx[begin + 1], X)
 N_nbs = GSP.getNnbs(G)
 
 nodes_trace = PLY.Config(
@@ -71,7 +70,7 @@ nodes_trace = PLY.Config(
     mode = "markers",
     text = [
         "Node $n, Neighbors: $(N_nbs[n])"
-        for n in eachindex(N_nbs)
+            for n in eachindex(N_nbs)
     ],
     marker = PLY.Config(
         #showscale = true,
@@ -124,7 +123,7 @@ PLY.save(ph, "figs/axis/axis_graph_$(η)_$(tag).html")
 import PlotlyKaleido
 
 PlotlyKaleido.start()
-(;data, layout, config) = ph
+(; data, layout, config) = ph
 PlotlyKaleido.savefig(
     ph,
     "figs/axis/axis_graph_$(η)_$(tag).svg";

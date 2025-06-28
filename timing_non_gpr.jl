@@ -1,11 +1,13 @@
-# natural neighbours itp
+# run timeing_query.sh first.
 
 down_factor = 2
 
 const T = Float64
+time_normalizing_constant = 1 # nano sectonds.
+
 const D = 2
 
-using Random, Images, BenchmarkTools, LinearAlgebra
+using Random, Images, BenchmarkTools, LinearAlgebra, Serialization
 import Interpolations
 import ScatteredInterpolation
 using NaturalNeighbours
@@ -15,9 +17,9 @@ PLT.close("all")
 fig_num = 1
 
 # # image
-include(joinpath("..", "helpers", "image.jl"))
+include(joinpath("helpers", "image.jl"))
 
-data_dir = joinpath("..", "data", "images")
+data_dir = joinpath("data", "images")
 image_file_name = "kodim05_cropped.png"
 data_path = joinpath(data_dir, image_file_name)
 
@@ -35,6 +37,7 @@ x2s = map(xx -> xx[2], Xs)
 println("Natural neighbors' setup")
 itp = interpolate(x1s, x2s, y; derivatives = true)
 q = @benchmark interpolate($x1s, $x2s, $y; derivatives = true)
+time_setup_nn = median(q.times) / time_normalizing_constant
 display(q)
 
 
@@ -52,16 +55,19 @@ xq_test = Xqs[round(Int, length(Xqs) / 2)]
 println("Natural neighbors query, Sibson:")
 itp(xq_test[1], xq_test[2]; method = Sibson())
 q = @benchmark itp($xq_test[1], $xq_test[2]; method = Sibson())
+time_sibson = median(q.times) / time_normalizing_constant
 display(q)
 
 println("Natural neighbors query, Laplace:")
 itp(xq_test[1], xq_test[2]; method = Laplace())
 q = @benchmark itp($xq_test[1], $xq_test[2]; method = Laplace())
+time_laplace = median(q.times) / time_normalizing_constant
 display(q)
 
 println("Natural neighbors query, Hiyoshi-2: ")
 itp(xq_test[1], xq_test[2]; method = Hiyoshi(2))
 q = @benchmark itp($xq_test[1], $xq_test[2]; method = Hiyoshi(2))
+time_hiyoshi2 = median(q.times) / time_normalizing_constant
 display(q)
 println()
 
@@ -75,6 +81,7 @@ itp_obj = ScatteredInterpolation.interpolate(
 println("Inverse distance weighting query:")
 ScatteredInterpolation.evaluate(itp_obj, xq_test)
 q = @benchmark ScatteredInterpolation.evaluate($itp_obj, $xq_test)
+time_idw = median(q.times) / time_normalizing_constant
 display(q)
 
 
@@ -102,11 +109,15 @@ end
 etp = setup_etp(im_y, Xrs)
 println("Bi-cubic interpolation, setup:")
 q = @benchmark setup_etp($im_y, $Xrs)
+time_setup_bicubic = median(q.times) / time_normalizing_constant
 display(q)
 
 #Evaluate at the query positions.
 println("Bi-cubic interpolation, query:")
 q = @benchmark $etp($xq_test[1], $xq_test[2])
+time_bicubic = median(q.times) / time_normalizing_constant
 display(q)
+
+serialize(joinpath("results", "time_non_gpr"), (time_bicubic, time_setup_bicubic, time_idw, time_hiyoshi2, time_laplace, time_sibson, time_setup_nn))
 
 nothing

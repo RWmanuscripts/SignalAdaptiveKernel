@@ -1,0 +1,240 @@
+(down_factor, N_neighbourhoods) = (2, 25)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.825005082139049)
+(sigma_r_factor, σr) = (4.0, 2.825005082139049)
+Stationary kernel:
+  1.464427 seconds (1.18 M allocations: 99.067 MiB, 0.45% gc time, 7 lock conflicts)
+DE kernel:
+  1.542199 seconds (1.13 M allocations: 66.437 MiB, 0.81% gc time)
+dek_vars = [0.10959871803222457, 11.023612246762605]
+sk_vars = [0.10959871803222457]
+(down_factor, N_neighbourhoods) = (4, 25)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.278874944810028)
+(sigma_r_factor, σr) = (4.0, 2.278874944810028)
+Stationary kernel:
+  1.358646 seconds (1.15 M allocations: 79.263 MiB, 0.82% gc time, 8 lock conflicts)
+DE kernel:
+  1.430235 seconds (1.14 M allocations: 66.606 MiB, 0.47% gc time)
+dek_vars = [0.1107441934876991, 10.15669986395025]
+sk_vars = [0.1107441934876991]
+(down_factor, N_neighbourhoods) = (6, 25)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.411928768693615)
+(sigma_r_factor, σr) = (4.0, 2.411928768693615)
+Stationary kernel:
+  1.346666 seconds (1.14 M allocations: 75.699 MiB, 0.30% gc time)
+DE kernel:
+  1.404624 seconds (1.13 M allocations: 66.448 MiB, 0.84% gc time)
+dek_vars = [0.11859856377711979, 9.703571561219437]
+sk_vars = [0.11859856377711979]
+(down_factor, N_neighbourhoods) = (8, 25)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.6241972138149676)
+(sigma_r_factor, σr) = (4.0, 2.6241972138149676)
+Stationary kernel:
+  1.030576 seconds (1.15 M allocations: 72.725 MiB, 1.21% gc time, 9 lock conflicts)
+DE kernel:
+  1.039371 seconds (1.12 M allocations: 66.192 MiB, 0.50% gc time)
+dek_vars = [0.1267117047537703, 9.725242463142608]
+sk_vars = [0.12671170475377028]
+(down_factor, N_neighbourhoods) = (10, 25)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.114798535949072)
+(sigma_r_factor, σr) = (4.0, 2.114798535949072)
+Stationary kernel:
+  0.769750 seconds (1.14 M allocations: 69.756 MiB, 1.67% gc time)
+DE kernel:
+  0.770413 seconds (1.13 M allocations: 66.392 MiB, 0.84% gc time)
+dek_vars = [0.13587234318292965, 8.933580370458062]
+sk_vars = [0.13587234318292965]
+(down_factor, N_neighbourhoods) = (2, 50)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.825005082139049)
+(sigma_r_factor, σr) = (4.0, 2.825005082139049)
+Stationary kernel:
+  2.607723 seconds (1.18 M allocations: 105.151 MiB, 1.20% gc time, 8 lock conflicts)
+DE kernel:
+  2.636142 seconds (1.13 M allocations: 66.369 MiB, 0.38% gc time, 1 lock conflict)
+dek_vars = [0.09282288474640604, 13.354748815944943]
+sk_vars = [0.09282288474640604]
+(down_factor, N_neighbourhoods) = (4, 50)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.278874944810028)
+(sigma_r_factor, σr) = (4.0, 2.278874944810028)
+Stationary kernel:
+  2.355773 seconds (1.16 M allocations: 86.577 MiB, 0.28% gc time, 2 lock conflicts)
+DE kernel:
+  2.504966 seconds (1.13 M allocations: 66.384 MiB, 0.18% gc time)
+dek_vars = [0.10322059428142999, 10.431362057322211]
+sk_vars = [0.10322059428142999]
+(down_factor, N_neighbourhoods) = (6, 50)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.411928768693615)
+(sigma_r_factor, σr) = (4.0, 2.411928768693615)
+Stationary kernel:
+  1.512405 seconds (1.14 M allocations: 76.736 MiB, 0.57% gc time)
+DE kernel:
+  1.531807 seconds (1.14 M allocations: 66.528 MiB, 0.73% gc time)
+dek_vars = [0.12144451981830004, 9.419941570092401]
+sk_vars = [0.12144451981830004]
+(down_factor, N_neighbourhoods) = (8, 50)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.6241972138149676)
+(sigma_r_factor, σr) = (4.0, 2.6241972138149676)
+Stationary kernel:
+  1.022676 seconds (1.15 M allocations: 72.719 MiB, 0.42% gc time, 1 lock conflict)
+DE kernel:
+  1.029970 seconds (1.12 M allocations: 66.193 MiB, 0.54% gc time)
+dek_vars = [0.1267117047537703, 9.725242463142608]
+sk_vars = [0.12671170475377028]
+(down_factor, N_neighbourhoods) = (10, 50)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.114798535949072)
+(sigma_r_factor, σr) = (4.0, 2.114798535949072)
+Stationary kernel:
+  0.777506 seconds (1.14 M allocations: 69.754 MiB, 1.67% gc time)
+DE kernel:
+  0.784145 seconds (1.13 M allocations: 66.389 MiB, 0.85% gc time)
+dek_vars = [0.13587234318292965, 8.933580370458062]
+sk_vars = [0.13587234318292965]
+(down_factor, N_neighbourhoods) = (2, 100)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.825005082139049)
+(sigma_r_factor, σr) = (4.0, 2.825005082139049)
+Stationary kernel:
+  4.866757 seconds (1.18 M allocations: 118.276 MiB, 0.26% gc time, 8 lock conflicts)
+DE kernel:
+  4.983345 seconds (1.14 M allocations: 66.610 MiB, 0.09% gc time)
+dek_vars = [0.07946370105234542, 16.22554858144691]
+sk_vars = [0.07946370105234542]
+(down_factor, N_neighbourhoods) = (4, 100)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.278874944810028)
+(sigma_r_factor, σr) = (4.0, 2.278874944810028)
+Stationary kernel:
+  2.940997 seconds (1.16 M allocations: 90.291 MiB, 0.35% gc time, 8 lock conflicts)
+DE kernel:
+  2.995825 seconds (1.13 M allocations: 66.416 MiB, 0.18% gc time)
+dek_vars = [0.1048604871089342, 10.446869740848058]
+sk_vars = [0.1048604871089342]
+(down_factor, N_neighbourhoods) = (6, 100)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.411928768693615)
+(sigma_r_factor, σr) = (4.0, 2.411928768693615)
+Stationary kernel:
+  1.491352 seconds (1.14 M allocations: 76.738 MiB, 0.60% gc time, 2 lock conflicts)
+DE kernel:
+  1.504763 seconds (1.14 M allocations: 66.528 MiB, 0.30% gc time)
+dek_vars = [0.12144451981830004, 9.419941570092401]
+sk_vars = [0.12144451981830004]
+(down_factor, N_neighbourhoods) = (8, 100)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.6241972138149676)
+(sigma_r_factor, σr) = (4.0, 2.6241972138149676)
+Stationary kernel:
+  1.029972 seconds (1.15 M allocations: 72.721 MiB, 0.43% gc time)
+DE kernel:
+  1.053272 seconds (1.12 M allocations: 66.193 MiB, 0.52% gc time)
+dek_vars = [0.1267117047537703, 9.725242463142608]
+sk_vars = [0.12671170475377028]
+(down_factor, N_neighbourhoods) = (10, 100)
+      From worker 2:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 3:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 4:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 5:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 6:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 7:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+      From worker 8:	  Activating project at `~/Documents/repos/reports/SignalAdaptiveKernel`
+(sigma_r_factor, σr) = (4.0, 2.114798535949072)
+(sigma_r_factor, σr) = (4.0, 2.114798535949072)
+Stationary kernel:
+  0.799878 seconds (1.14 M allocations: 69.767 MiB, 1.70% gc time, 1 lock conflict)
+DE kernel:
+  0.814818 seconds (1.13 M allocations: 66.392 MiB, 0.85% gc time)
+dek_vars = [0.13587234318292965, 8.933580370458062]
+sk_vars = [0.13587234318292965]
