@@ -194,8 +194,8 @@ Structural Similarity Index Measure
 
 \begin_layout Standard
 Although the HRWT-based warp map can be used on image data,
- we use the BF-based warp map so we get good visualization of its performance,
- before we move to non-grid data in the next experiment.
+ we use the BF-based warp map so we get good visualization of its behavior,
+ before we use BF for non-grid data in the next experiment.
  Recall that our axis-search...
  (rest of paragraph)
 \end_layout

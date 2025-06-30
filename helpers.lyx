@@ -274,6 +274,27 @@ Time benchmarks
 \end_layout
 
 \begin_layout Standard
+\begin_inset Formula $U\subseteq X$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $N=\left|X\right|$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $O\left(N\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 We made a few trade-offs in the design of the proposed warp map-based DE kernels and lazy-evaluation inference works.
  The DE kernels require additional resources to evaluate the warp map for every query point,
  but the warp map evaluations for the training inputs can be pre-computed and stored in memory to speed up the computation of kernel matrices 
