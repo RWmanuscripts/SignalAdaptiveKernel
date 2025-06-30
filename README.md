@@ -3,7 +3,7 @@ To reproduce the figures and tables in our manuscript, run
 ```
 bash rainfall.sh
 bash kodak.sh
-bash axis_plot sh
+bash axis_plot.sh
 julia setup_manuscript.jl
 ```
 
@@ -25,5 +25,3 @@ bash time_hp_1.sh |tee > log_time_hp_1.txt
 bash time_hp_lazy.sh |tee > log_time_hp_lazy.txt
 
 bash time_query.sh |tee > log_time_query.txt
-
-time_bicubic, time_setup_bicubic, time_idw, time_hiyoshi2, time_laplace, time_sibson, time_setup_nn

@@ -31,11 +31,14 @@ import Metaheuristics as EVO
 import Images
 import LocalFilters
 import SpatialGSP as GSP
+
+#using Revise # TODO remove
 import LazyGPR as LGP
 import Distances
 
 import VisualizationBag as VIZ
 
+include("helpers/subplots.jl")
 
 const T = Float64
 const D = 2;
@@ -131,10 +134,11 @@ markers[2] = mk_cyan
 
 marker_colours = Vector{String}(undef, 2)
 marker_colours[1] = "cyan"
+#marker_colours[1] = "red"
 marker_colours[2] = "cyan"
 
-warp_camp = "bwr"
 mk_symbols = ["D"; "*"]
+#mk_symbols = ["*"; "*"]
 
 # Load hyperparameters
 load_path = joinpath("results", "timing_hp_single_downfactor_$(down_factor)")
@@ -147,7 +151,9 @@ y = vec(im_y)
 X = vec(collect(collect(x) for x in Iterators.product(Xrs...)))
 
 # ## Stationary kernel
-sk1 = LGP.SqExpKernel(sk1_vars[begin])
+sk1 = LGP.WendlandSplineKernel(
+    LGP.Order2(), sk1_vars[begin], 3,
+)
 gp_sk1 = LGP.fitGP(X, y, σ², sk1)
 
 # ## DE kernel
@@ -185,18 +191,22 @@ k_dek_cyan = xx -> LGP.evalkernel(
 
 # ### The red marker's region of interest
 ROI_half_size = T(3)
+up_factor = 10
 
 x1_lb_red = mk_red[1] - ROI_half_size
 x1_ub_red = mk_red[1] + ROI_half_size
 x2_lb_red = mk_red[2] - ROI_half_size
 x2_ub_red = mk_red[2] + ROI_half_size
-Nq1 = 50
-Nq2 = 50
+Nq1 = round(Int, (x1_ub_red - x1_lb_red) * up_factor) + 1 # +1 to ensure the training input is queried, which is important for the grid variance plot for SK. Otherwise, aliasing will occur, and the grid pattern won't form.
+Nq2 = round(Int, (x2_ub_red - x2_lb_red) * up_factor) + 1
 Xqrs_red = (
     LinRange(x1_lb_red, x1_ub_red, Nq1),
     LinRange(x2_lb_red, x2_ub_red, Nq2),
 )
 Xqs_red = collect(collect(x) for x in Iterators.product(Xqrs_red...))
+
+#include("debug.jl")
+#@assert 1 == 232
 
 # the data restricted to this region.
 imy_Xq_red = im_y[floor(Int, x1_lb_red):floor(Int, x1_ub_red), floor(Int, x2_lb_red):floor(Int, x2_ub_red)]
@@ -224,8 +234,9 @@ println("Querying DEK, red region")
 )
 mqs_dek_red = map(xx -> xx[1], query_dek_red)
 vqs_dek_red = map(xx -> xx[2], query_dek_red)
-# 90 sec each.
+# 144 sec each.
 serialize(joinpath("results", "region_red_upconvert"), (mqs_sk_red, vqs_sk_red, mqs_dek_red, vqs_dek_red))
+
 
 mqs_sk_red, vqs_sk_red, mqs_dek_red, vqs_dek_red = deserialize(joinpath("results", "region_red_upconvert"))
 
@@ -236,8 +247,8 @@ x1_lb_cyan = mk_cyan[1] - ROI_half_size
 x1_ub_cyan = mk_cyan[1] + ROI_half_size
 x2_lb_cyan = mk_cyan[2] - ROI_half_size
 x2_ub_cyan = mk_cyan[2] + ROI_half_size
-Nq1 = 50
-Nq2 = 50
+Nq1 = round(Int, (x1_ub_cyan - x1_lb_cyan) * up_factor) + 1 # +1 to ensure the training input is queried, which is important for the grid variance plot for SK. Otherwise, aliasing will occur, and the grid pattern won't form.
+Nq2 = round(Int, (x2_ub_cyan - x2_lb_cyan) * up_factor) + 1
 Xqrs_cyan = (
     LinRange(x1_lb_cyan, x1_ub_cyan, Nq1),
     LinRange(x2_lb_cyan, x2_ub_cyan, Nq2),
@@ -270,7 +281,7 @@ println("Querying DEK, cyan region")
 )
 mqs_dek_cyan = map(xx -> xx[1], query_dek_cyan)
 vqs_dek_cyan = map(xx -> xx[2], query_dek_cyan)
-# 90 sec each.
+# 144 sec each.
 serialize(joinpath("results", "region_cyan_upconvert"), (mqs_sk_cyan, vqs_sk_cyan, mqs_dek_cyan, vqs_dek_cyan))
 
 mqs_sk_cyan, vqs_sk_cyan, mqs_dek_cyan, vqs_dek_cyan = deserialize(joinpath("results", "region_cyan_upconvert"))
@@ -351,7 +362,18 @@ end
 
 save_dpi = 150
 
-PLT.figure(fig_num, figsize = (8, 4), dpi = 150)
+#var_cmap = "cool"
+#var_cmap = "spring"
+var_cmap = "summer"
+
+warp_camp = "bwr"
+#warp_camp = "PiYG"
+#warp_camp = "PRGn"
+#warp_camp = "bone"
+#warp_camp = "PuOr"
+
+#PLT.figure(fig_num, figsize = (8, 4), dpi = 150)
+PLT.figure(fig_num, figsize = (8, 8), dpi = 150)
 fig_num += 1
 
 PLT.subplot(121)
@@ -408,7 +430,7 @@ X2_red = (
     LinRange(x1_lb_red, x1_ub_red, size(imy_Xq_red, 1)),
     LinRange(x2_lb_red, x2_ub_red, size(imy_Xq_red, 2)),
 )
-PLT.subplot2grid((3, 4), (0, 0))
+PLT.subplot2grid((4, 4), (0, 0))
 plot_subfig(
     PLT,
     collect(X2_red),
@@ -425,7 +447,7 @@ plot_subfig(
 PLT.axis("off")
 PLT.title("Data")
 
-PLT.subplot2grid((3, 4), (0, 1))
+PLT.subplot2grid((4, 4), (0, 1))
 plot_subfig(
     PLT,
     collect(Xqrs_red),
@@ -448,7 +470,7 @@ X2_cyan = (
     LinRange(x1_lb_cyan, x1_ub_cyan, size(imy_Xq_cyan, 1)),
     LinRange(x2_lb_cyan, x2_ub_cyan, size(imy_Xq_cyan, 2)),
 )
-PLT.subplot2grid((3, 4), (0, 2))
+PLT.subplot2grid((4, 4), (0, 2))
 plot_subfig(
     PLT,
     collect(X2_cyan),
@@ -465,7 +487,7 @@ plot_subfig(
 PLT.axis("off")
 PLT.title("Data")
 
-PLT.subplot2grid((3, 4), (0, 3))
+PLT.subplot2grid((4, 4), (0, 3))
 plot_subfig(
     PLT,
     collect(Xqrs_cyan),
@@ -484,7 +506,7 @@ plot_subfig(
 PLT.axis("off")
 PLT.title("Warp map")
 
-PLT.subplot2grid((3, 4), (1, 0))
+PLT.subplot2grid((4, 4), (1, 0))
 plot_subfig(
     PLT,
     collect(Xqrs_red),
@@ -500,7 +522,7 @@ plot_subfig(
 PLT.axis("off")
 PLT.title("SK posterior mean")
 
-PLT.subplot2grid((3, 4), (1, 1))
+PLT.subplot2grid((4, 4), (1, 1))
 plot_subfig(
     PLT,
     collect(Xqrs_red),
@@ -516,7 +538,7 @@ plot_subfig(
 PLT.axis("off")
 PLT.title("DEK posterior mean")
 
-PLT.subplot2grid((3, 4), (1, 2))
+PLT.subplot2grid((4, 4), (1, 2))
 plot_subfig(
     PLT,
     collect(Xqrs_cyan),
@@ -532,7 +554,7 @@ plot_subfig(
 PLT.axis("off")
 PLT.title("SK posterior mean")
 
-PLT.subplot2grid((3, 4), (1, 3))
+PLT.subplot2grid((4, 4), (1, 3))
 plot_subfig(
     PLT,
     collect(Xqrs_cyan),
@@ -549,7 +571,71 @@ PLT.axis("off")
 PLT.title("DEK posterior mean")
 
 
-PLT.subplot2grid((3, 4), (2, 0))
+PLT.subplot2grid((4, 4), (2, 0))
+plot_subfig(
+    PLT,
+    collect(Xqrs_red),
+    log.(vqs_sk_red),
+    marker_locations = markers[1:1],
+    marker_symbols = mk_symbols[1:1],
+    marker_colors = marker_colours[1:1],
+    matrix_mode = true,
+    display_color_bar = true,
+    color_bar_params = (0.04, 0.04),
+    cmap = var_cmap,
+)
+PLT.axis("off")
+PLT.title("SK posterior log variance")
+
+PLT.subplot2grid((4, 4), (2, 1))
+plot_subfig(
+    PLT,
+    collect(Xqrs_red),
+    log.(vqs_dek_red),
+    marker_locations = markers[1:1],
+    marker_symbols = mk_symbols[1:1],
+    marker_colors = marker_colours[1:1],
+    matrix_mode = true,
+    display_color_bar = true,
+    color_bar_params = (0.04, 0.04),
+    cmap = var_cmap,
+)
+PLT.axis("off")
+PLT.title("DEK posterior log variance")
+
+PLT.subplot2grid((4, 4), (2, 2))
+plot_subfig(
+    PLT,
+    collect(Xqrs_cyan),
+    log.(vqs_sk_cyan),
+    marker_locations = markers[2:2],
+    marker_symbols = mk_symbols[2:2],
+    marker_colors = marker_colours[2:2],
+    matrix_mode = true,
+    display_color_bar = true,
+    color_bar_params = (0.04, 0.04),
+    cmap = var_cmap,
+)
+PLT.axis("off")
+PLT.title("SK posterior log variance")
+
+PLT.subplot2grid((4, 4), (2, 3))
+plot_subfig(
+    PLT,
+    collect(Xqrs_cyan),
+    log.(vqs_dek_cyan),
+    marker_locations = markers[2:2],
+    marker_symbols = mk_symbols[2:2],
+    marker_colors = marker_colours[2:2],
+    matrix_mode = true,
+    display_color_bar = true,
+    color_bar_params = (0.04, 0.04),
+    cmap = var_cmap,
+)
+PLT.axis("off")
+PLT.title("DEK posterior log variance")
+
+PLT.subplot2grid((4, 4), (3, 0))
 plot_subfig(
     PLT,
     collect(Xqrs_red),
@@ -567,7 +653,7 @@ plot_subfig(
 PLT.axis("off")
 PLT.title("SK centered kernel")
 
-PLT.subplot2grid((3, 4), (2, 1))
+PLT.subplot2grid((4, 4), (3, 1))
 plot_subfig(
     PLT,
     collect(Xqrs_red),
@@ -585,7 +671,7 @@ plot_subfig(
 PLT.axis("off")
 PLT.title("DEK centered kernel")
 
-PLT.subplot2grid((3, 4), (2, 2))
+PLT.subplot2grid((4, 4), (3, 2))
 plot_subfig(
     PLT,
     collect(Xqrs_cyan),
@@ -603,7 +689,7 @@ plot_subfig(
 PLT.axis("off")
 PLT.title("SK centered kernel")
 
-PLT.subplot2grid((3, 4), (2, 3))
+PLT.subplot2grid((4, 4), (3, 3))
 plot_subfig(
     PLT,
     collect(Xqrs_cyan),

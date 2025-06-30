@@ -158,17 +158,17 @@ println()
 
 tag = "ML"
 
-# using Serialization
-# serialize(
-#     joinpath(save_results_dir, "CA_rainfall_hp_$(tag)"),
-#     (
-#         dek_vars_sep, dek_star_sep,
-#         sk_vars_sep, sk_star_sep,
-#         dek_vars, dek_star,
-#         sk_vars, sk_star,
-#         a_lb, a_ub, κ_ub, width_factor,
-#     )
-# )
+using Serialization
+serialize(
+    joinpath(save_results_dir, "CA_rainfall_hp_$(tag)"),
+    (
+        dek_vars_sep, dek_star_sep,
+        sk_vars_sep, sk_star_sep,
+        dek_vars, dek_star,
+        sk_vars, sk_star,
+        a_lb, a_ub, κ_ub, width_factor,
+    )
+)
 
 
 nothing

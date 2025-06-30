@@ -15,7 +15,7 @@ PLT.close("all")
 fig_num = 1
 
 const T = Float64
-const D = 2
+D = 2
 
 rng = Random.Xoshiro(0)
 N = 500

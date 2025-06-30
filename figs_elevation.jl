@@ -50,6 +50,7 @@ vmax = max(
     maximum(mqs_sk),
 )
 var_cmap = "Greys_r"
+#var_cmap = "summer"
 
 function plot_subfig(
         PLT, # PythonPlot

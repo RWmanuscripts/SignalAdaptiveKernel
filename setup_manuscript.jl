@@ -3,15 +3,14 @@
 # bash kodak.sh
 # Then navigate to this directory and run this script in Julia REPL.
 
+const T = Float64;
 
 using Pkg
 Pkg.activate(".")
 Pkg.Registry.add(RegistrySpec(url = "https://github.com/RoyCCWang/RWPublicJuliaRegistry"))
+import Pkg
 let
-    pkgs = [
-        "JSON3", "LazyGPR", "SpatialGSP", "Interpolations", "ScatteredInterpolation", "PythonPlot", "Revise", "IJulia", "Images", "RieszDSP", "LocalFilters", "VisualizationBag", "StaticArrays",
-        "Markdown", "Tables", "MarkdownTables", "FileIO",
-    ]
+    pkgs = ["PythonPlot"]
     for pkg in pkgs
         if isnothing(Base.find_package(pkg))
             Pkg.add(pkg)
@@ -37,8 +36,8 @@ import SpatialGSP as GSP
 using Markdown, Tables, MarkdownTables, FileIO, Serialization, DelimitedFiles
 
 include("helpers/image.jl");
+include("helpers/subplots.jl")
 
-T = Float64;
 
 # # Set up for figures for one-hop operators
 
@@ -344,70 +343,70 @@ if σr > 0 && σs > 0
     )
 end
 
-# # Visualize
-fig_size = VIZ.getaspectratio(size(im_y)) .* 5.5
-#@show fig_size
+# # # Visualize
+# fig_size = VIZ.getaspectratio(size(im_y)) .* 5.5
+# #@show fig_size
 
-dpi = 300
-#dpi = 96
+# dpi = 300
+# #dpi = 96
 
-fig_num = VIZ.plotmeshgrid2D(
+# ## Warp sample comparison
+save_dpi = 300
+
+PLT.figure(fig_num, figsize = (9, 3), dpi = 150)
+fig_num += 1
+
+PLT.subplot2grid((1, 3), (0, 0))
+plot_subfig(
     PLT,
     collect(Xrs),
     im_y,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    vmin = 0,
-    vmax = 1,
-    horizontal_title = "",
-    vertical_title = "",
+    marker_locations = [],
     matrix_mode = true,
-    color_bar_shrink = 0.7,
-    fig_size = fig_size = fig_size,
-    dpi = dpi,
+    vmin = zero(T),
+    vmax = one(T),
+    display_color_bar = true,
+    color_bar_params = (0.03, 0.04),
 )
-PLT.savefig("figs/manuscript/fig-warp-compare-image_data.png", dpi = dpi, bbox_inches = "tight")
+PLT.axis("off")
+PLT.title("Data")
 
-fig_num = VIZ.plotmeshgrid2D(
+PLT.subplot2grid((1, 3), (0, 1))
+plot_subfig(
     PLT,
     collect(Xrs),
     W_rz,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "bwr",
-    symmetric_color_range = true,
-    horizontal_title = "",
-    vertical_title = "",
+    marker_locations = [],
     matrix_mode = true,
-    color_bar_shrink = 0.7,
-    fig_size = fig_size,
-    dpi = dpi,
+    cmap = "bwr",
+    display_color_bar = true,
+    color_bar_params = (0.03, 0.04),
+    symmetric_color_range = true,
 )
-PLT.savefig("figs/manuscript/fig-warp-compare-HRWT.png", dpi = dpi, bbox_inches = "tight")
+PLT.axis("off")
+PLT.title("HWRT-based warp samples")
 
-fig_num = VIZ.plotmeshgrid2D(
+PLT.subplot2grid((1, 3), (0, 2))
+plot_subfig(
     PLT,
     collect(Xrs),
     W_knn,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "bwr",
-    symmetric_color_range = true,
-    horizontal_title = "",
-    vertical_title = "",
+    marker_locations = [],
     matrix_mode = true,
-    color_bar_shrink = 0.7,
-    fig_size = fig_size,
-    dpi = dpi,
+    cmap = "bwr",
+    display_color_bar = true,
+    color_bar_params = (0.03, 0.04),
+    symmetric_color_range = true,
 )
-PLT.savefig("figs/manuscript/fig-warp-compare-bernstein_filtering.png", dpi = dpi, bbox_inches = "tight")
+PLT.axis("off")
+PLT.title("BF-based warp samples")
+
+PLT.subplots_adjust(
+    left = 0.04, right = 1 - 0.1, top = 1 - 0.1, bottom = 0.03,
+    wspace = 0.15, hspace = 0.3,
+)
+PLT.savefig(joinpath("figs", "manuscript", "fig-warp-compare.png"), dpi = save_dpi, bbox_inches = "tight")
+
 
 # # Table for the rainfall dataset
 
@@ -483,7 +482,6 @@ print(
 
 # # Figure for the rainfall dataset
 
-
 # # Visualize
 
 #fig_size = VIZ.getaspectratio(size(im_y)) .* 4
@@ -494,7 +492,9 @@ dpi = 300
 cmap = "bwr"
 
 #var_cmap = "Reds"
-var_cmap = "Greys"
+#var_cmap = "Greys_r"
+#var_cmap = "cool"
+var_cmap = "summer"
 
 vmax = maximum(y)
 vmin = -vmax
@@ -606,137 +606,20 @@ fig_num = VIZ.plotmeshgrid2D(
 PLT.gca().invert_yaxis()
 PLT.savefig("figs/manuscript/rainfall_canonical_variance.png", dpi = dpi, bbox_inches = "tight")
 
-# # Hat figure
+# # Parrot & helmet figures
 
 
 # # Visualize
 
-reference_image_folder = "data/images/kodak/"
-results_dir = "results/kodak/down2/spline32/"
-r_select = 4
-ms_string = "ML"
-
-# Hat.
-Xrs = (14:242, 162:372) # close up, eye, neck.
-scene = "kodim04"
-Xrs_hat = Xrs
-
-load_path = joinpath(
-    results_dir, "upconvert_$(scene)_$(ms_string)"
-)
-(
-    itp_Xq, mqs_sk, vqs_sk,
-    mqs_dek_set, vqs_dek_set,
-    dek_vars_set, dek_score_set,
-    sk_vars_set, sk_score_set, κ_ub,
-) = deserialize(load_path)
-
-mqs_sk = reshape(mqs_sk, size(itp_Xq))
-vqs_sk = reshape(vqs_sk, size(itp_Xq))
-
-# means
-m_dek = mqs_dek_set[r_select][Xrs...]
-m_ck = mqs_sk[Xrs...]
-v_dek_hat = vqs_dek_set[r_select][Xrs...]
-v_ck_hat = vqs_sk[Xrs...]
-itp = itp_Xq[Xrs...]
-
-# oracle
-file_path = joinpath(reference_image_folder, "$(scene).png")
-img = Images.load(file_path)
-gray_img = Images.Gray.(img)
-y_nD = convert(Array{T}, gray_img)
-im_y = y_nD[Xrs...]
-
-# oracle
-fig_num = VIZ.plotmeshgrid2D(
-    PLT,
-    collect(Xrs),
-    im_y,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    vmin = zero(T),
-    vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
-    display_color_bar = false,
-)
-PLT.savefig("figs/manuscript/hat_reference.png", dpi = dpi, bbox_inches = "tight")
-
-# DEK - mean.
-fig_num = VIZ.plotmeshgrid2D(
-    PLT,
-    collect(Xrs),
-    m_dek,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    vmin = zero(T),
-    vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
-    display_color_bar = false,
-)
-PLT.savefig("figs/manuscript/hat_DE_mean.png", dpi = dpi, bbox_inches = "tight")
-
-# bi-cubic interpolation.
-fig_num = VIZ.plotmeshgrid2D(
-    PLT,
-    collect(Xrs),
-    itp,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    vmin = zero(T),
-    vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
-    display_color_bar = false,
-)
-PLT.savefig("figs/manuscript/hat_spline_itp.png", dpi = dpi, bbox_inches = "tight")
-
-# CK mean.
-fig_num = VIZ.plotmeshgrid2D(
-    PLT,
-    collect(Xrs),
-    m_ck,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    vmin = zero(T),
-    vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
-    display_color_bar = false,
-)
-PLT.savefig("figs/manuscript/hat_canonical_mean.png", dpi = dpi, bbox_inches = "tight")
-
-# # Parrot figure
-
-# # Visualize
-
-reference_image_folder = "data/images/kodak/"
-results_dir = "results/kodak/down2/spline32/"
+reference_image_folder = joinpath("data", "images", "kodak")
+results_dir = joinpath("results", "kodak", "down2", "spline32")
 r_select = 4
 ms_string = "ML"
 
 # Parrot face.
-Xrs = (180:320, 120:300) # close up, eye, neck.
+Xrs_bird = (180:320, 120:300) # close up, eye, neck.
 scene = "kodim23"
-Xrs_bird = Xrs
+Xrs = Xrs_bird
 
 load_path = joinpath(
     results_dir, "upconvert_$(scene)_$(ms_string)"
@@ -747,113 +630,31 @@ load_path = joinpath(
     dek_vars_set, dek_score_set,
     sk_vars_set, sk_score_set, κ_ub,
 ) = deserialize(load_path)
-
 mqs_sk = reshape(mqs_sk, size(itp_Xq))
 vqs_sk = reshape(vqs_sk, size(itp_Xq))
 
 # means
-m_dek = mqs_dek_set[r_select][Xrs...]
-m_ck = mqs_sk[Xrs...]
-v_dek_bird = vqs_dek_set[r_select][Xrs...]
-v_ck_bird = vqs_sk[Xrs...]
-itp = itp_Xq[Xrs...]
+m_dek_bird = mqs_dek_set[r_select][Xrs...]
+m_ck_bird = mqs_sk[Xrs...]
+itp_bird = itp_Xq[Xrs...]
 
 # oracle
 file_path = joinpath(reference_image_folder, "$(scene).png")
 img = Images.load(file_path)
 gray_img = Images.Gray.(img)
 y_nD = convert(Array{T}, gray_img)
-im_y = y_nD[Xrs...]
+im_y_bird = y_nD[Xrs...]
 
-# oracle
-fig_num = VIZ.plotmeshgrid2D(
-    PLT,
-    collect(Xrs),
-    im_y,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    vmin = zero(T),
-    vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
-    display_color_bar = false,
-)
-PLT.savefig("figs/manuscript/parrot_reference.png", dpi = dpi, bbox_inches = "tight")
 
-# DEK - mean.
-fig_num = VIZ.plotmeshgrid2D(
-    PLT,
-    collect(Xrs),
-    m_dek,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    vmin = zero(T),
-    vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
-    display_color_bar = false,
-)
-PLT.savefig("figs/manuscript/parrot_DE_mean.png", dpi = dpi, bbox_inches = "tight")
-
-# bi-cubic interpolation.
-fig_num = VIZ.plotmeshgrid2D(
-    PLT,
-    collect(Xrs),
-    itp,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    vmin = zero(T),
-    vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
-    display_color_bar = false,
-)
-PLT.savefig("figs/manuscript/parrot_spline_itp.png", dpi = dpi, bbox_inches = "tight")
-
-# CK mean.
-fig_num = VIZ.plotmeshgrid2D(
-    PLT,
-    collect(Xrs),
-    m_ck,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    vmin = zero(T),
-    vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
-    display_color_bar = false,
-)
-PLT.savefig("figs/manuscript/parrot_canonical_mean.png", dpi = dpi, bbox_inches = "tight")
-
-# # Helmet figure
-
-# # Visualize
-
-reference_image_folder = "data/images/kodak/"
-results_dir = "results/kodak/down2/spline32/"
+reference_image_folder = joinpath("data", "images", "kodak")
+results_dir = joinpath("results", "kodak", "down2", "spline32")
 r_select = 4
 ms_string = "ML"
 
 # Helmet.
-Xrs = (30:190, 30:190) # close up, eye, neck.
+Xrs_helmet = (30:190, 30:190) # close up, eye, neck.
 scene = "kodim05"
-Xrs_helmet = Xrs
+Xrs = Xrs_helmet
 
 load_path = joinpath(
     results_dir, "upconvert_$(scene)_$(ms_string)"
@@ -864,103 +665,151 @@ load_path = joinpath(
     dek_vars_set, dek_score_set,
     sk_vars_set, sk_score_set, κ_ub,
 ) = deserialize(load_path)
-
 mqs_sk = reshape(mqs_sk, size(itp_Xq))
 vqs_sk = reshape(vqs_sk, size(itp_Xq))
 
 # means
-m_dek = mqs_dek_set[r_select][Xrs...]
-m_ck = mqs_sk[Xrs...]
-v_dek_helmet = vqs_dek_set[r_select][Xrs...]
-v_ck_helmet = vqs_sk[Xrs...]
-itp = itp_Xq[Xrs...]
+m_dek_helmet = mqs_dek_set[r_select][Xrs...]
+m_ck_helmet = mqs_sk[Xrs...]
+itp_helmet = itp_Xq[Xrs...]
 
 # oracle
 file_path = joinpath(reference_image_folder, "$(scene).png")
 img = Images.load(file_path)
 gray_img = Images.Gray.(img)
 y_nD = convert(Array{T}, gray_img)
-im_y = y_nD[Xrs...]
+im_y_helmet = y_nD[Xrs...]
 
-# oracle
-fig_num = VIZ.plotmeshgrid2D(
+# plot
+save_dpi = 300
+
+PLT.figure(fig_num, figsize = (7, 11), dpi = 150)
+fig_num += 1
+
+PLT.subplot2grid((4, 2), (0, 0))
+plot_subfig(
     PLT,
-    collect(Xrs),
-    im_y,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
+    collect(Xrs_bird),
+    im_y_bird,
+    marker_locations = [],
+    matrix_mode = true,
     vmin = zero(T),
     vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
     display_color_bar = false,
 )
-PLT.savefig("figs/manuscript/helmet_reference.png", dpi = dpi, bbox_inches = "tight")
+PLT.axis("off")
+PLT.title("Reference")
 
-# DEK - mean.
-fig_num = VIZ.plotmeshgrid2D(
+PLT.subplot2grid((4, 2), (0, 1))
+plot_subfig(
     PLT,
-    collect(Xrs),
-    m_dek,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
+    collect(Xrs_bird),
+    m_dek_bird,
+    marker_locations = [],
+    matrix_mode = true,
     vmin = zero(T),
     vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
     display_color_bar = false,
 )
-PLT.savefig("figs/manuscript/helmet_DE_mean.png", dpi = dpi, bbox_inches = "tight")
+PLT.axis("off")
+PLT.title("Lazy-evaluation, DEK, mean")
 
-# bi-cubic interpolation.
-fig_num = VIZ.plotmeshgrid2D(
+PLT.subplot2grid((4, 2), (1, 0))
+plot_subfig(
     PLT,
-    collect(Xrs),
-    itp,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
+    collect(Xrs_bird),
+    itp_bird,
+    marker_locations = [],
+    matrix_mode = true,
     vmin = zero(T),
     vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
     display_color_bar = false,
 )
-PLT.savefig("figs/manuscript/helmet_spline_itp.png", dpi = dpi, bbox_inches = "tight")
+PLT.axis("off")
+PLT.title("Spline")
 
-# CK mean.
-fig_num = VIZ.plotmeshgrid2D(
+PLT.subplot2grid((4, 2), (1, 1))
+plot_subfig(
     PLT,
-    collect(Xrs),
-    m_ck,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
+    collect(Xrs_bird),
+    m_ck_bird,
+    marker_locations = [],
+    matrix_mode = true,
     vmin = zero(T),
     vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
     display_color_bar = false,
 )
-PLT.savefig("figs/manuscript/helmet_canonical_mean.png", dpi = dpi, bbox_inches = "tight")
+PLT.axis("off")
+PLT.title("Lazy-evaluation, CK, mean")
 
+
+PLT.subplot2grid((4, 2), (2, 0))
+plot_subfig(
+    PLT,
+    collect(Xrs_helmet),
+    im_y_helmet,
+    marker_locations = [],
+    matrix_mode = true,
+    vmin = zero(T),
+    vmax = one(T),
+    display_color_bar = false,
+)
+PLT.axis("off")
+PLT.title("Reference")
+
+PLT.subplot2grid((4, 2), (2, 1))
+plot_subfig(
+    PLT,
+    collect(Xrs_helmet),
+    m_dek_helmet,
+    marker_locations = [],
+    matrix_mode = true,
+    vmin = zero(T),
+    vmax = one(T),
+    display_color_bar = false,
+)
+PLT.axis("off")
+PLT.title("Lazy-evaluation, DEK, mean")
+
+PLT.subplot2grid((4, 2), (3, 0))
+plot_subfig(
+    PLT,
+    collect(Xrs_helmet),
+    itp_helmet,
+    marker_locations = [],
+    matrix_mode = true,
+    vmin = zero(T),
+    vmax = one(T),
+    display_color_bar = false,
+)
+PLT.axis("off")
+PLT.title("Spline")
+
+PLT.subplot2grid((4, 2), (3, 1))
+plot_subfig(
+    PLT,
+    collect(Xrs_helmet),
+    m_ck_helmet,
+    marker_locations = [],
+    matrix_mode = true,
+    vmin = zero(T),
+    vmax = one(T),
+    display_color_bar = false,
+)
+PLT.axis("off")
+PLT.title("Lazy-evaluation, CK, mean")
+
+PLT.subplots_adjust(
+    left = 0.04, right = 1 - 0.04, top = 1 - 0.04, bottom = 0.04,
+    wspace = 0.1, hspace = 0.1,
+)
+PLT.savefig(
+    joinpath("figs", "manuscript", "fig-kodak.png"),
+    dpi = save_dpi,
+    bbox_inches = "tight",
+)
 
 # # Table - Kodak dataset, hyperparameters
-
 
 include("helpers/kodak_tables.jl")
 rs = 1:6
@@ -1019,122 +868,6 @@ print(
         ), String
     )
 )
-
-# # Figure - Kodak images variance
-
-# DEK variance. hat.
-fig_num = VIZ.plotmeshgrid2D(
-    PLT,
-    collect(Xrs_hat),
-    v_dek_hat,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    #vmin = zero(T),
-    #vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
-    color_bar_shrink = 0.7,
-)
-PLT.savefig("figs/manuscript/variance_hat_DE.png", dpi = dpi, bbox_inches = "tight")
-
-# CK variance. hat.
-fig_num = VIZ.plotmeshgrid2D(
-    PLT,
-    collect(Xrs_hat),
-    v_ck_hat,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    #vmin = zero(T),
-    #vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
-    color_bar_shrink = 0.7,
-)
-PLT.savefig("figs/manuscript/variance_hat_canonical.png", dpi = dpi, bbox_inches = "tight")
-
-# DEK variance. bird.
-fig_num = VIZ.plotmeshgrid2D(
-    PLT,
-    collect(Xrs_bird),
-    v_dek_bird,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    #vmin = zero(T),
-    #vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
-    color_bar_shrink = 0.7,
-)
-PLT.savefig("figs/manuscript/variance_parrot_DE.png", dpi = dpi, bbox_inches = "tight")
-
-# CK variance. bird.
-fig_num = VIZ.plotmeshgrid2D(
-    PLT,
-    collect(Xrs_bird),
-    v_ck_bird,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    #vmin = zero(T),
-    #vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
-    color_bar_shrink = 0.7,
-)
-PLT.savefig("figs/manuscript/variance_parrot_canonical.png", dpi = dpi, bbox_inches = "tight")
-
-# DEK variance. helmet.
-fig_num = VIZ.plotmeshgrid2D(
-    PLT,
-    collect(Xrs_helmet),
-    v_dek_helmet,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    #vmin = zero(T),
-    #vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
-    color_bar_shrink = 0.7,
-)
-PLT.savefig("figs/manuscript/variance_helmet_DE.png", dpi = dpi, bbox_inches = "tight")
-
-# CK variance. helmet.
-fig_num = VIZ.plotmeshgrid2D(
-    PLT,
-    collect(Xrs_helmet),
-    v_ck_helmet,
-    [],
-    "x",
-    fig_num,
-    "";
-    cmap = "gray",
-    #vmin = zero(T),
-    #vmax = one(T),
-    horizontal_title = "",
-    vertical_title = "",
-    matrix_mode = true,
-    color_bar_shrink = 0.7,
-)
-PLT.savefig("figs/manuscript/variance_helmet_canonical.png", dpi = dpi, bbox_inches = "tight")
 
 include("patchwork_kriging.jl")
 

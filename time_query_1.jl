@@ -126,7 +126,9 @@ y = vec(im_y)
 X = vec(collect(collect(x) for x in Iterators.product(Xrs...)))
 
 # ## Stationary kernel
-sk1 = LGP.SqExpKernel(sk1_vars[begin])
+sk1 = LGP.WendlandSplineKernel(
+    LGP.Order2(), sk1_vars[begin], 3,
+)
 
 println("Non-lazy GPR, stationary kernel, RKHS system solve: ")
 gp_sk1 = LGP.fitGP(X, y, σ², sk1)
