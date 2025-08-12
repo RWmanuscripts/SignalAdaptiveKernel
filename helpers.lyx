@@ -471,5 +471,168 @@ In these tables,
  but the predictive posterior variance information can be useful for applications such as spatial climate data or topological elevation modeling.
 \end_layout
 
+\begin_layout Section
+DE
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+The 
+\emph on
+dimensional expansion
+\emph default
+ (DE) kernel function that we use for this work has the following form for a 
+\begin_inset Formula $D$
+\end_inset
+
+-dimensional input space:
+ 
+\begin_inset Formula 
+\begin{align}
+k:\mathbb{R}^{D}\times\mathbb{R}^{D} & \rightarrow\mathbb{R},\label{eq:de_kernel_form}\\
+\left(x,z\right) & \mapsto k_{\text{s}}\left(\begin{bmatrix}x\\
+\phi\left(x\right)
+\end{bmatrix},\begin{bmatrix}z\\
+\phi\left(z\right)
+\end{bmatrix}\right),\nonumber 
+\end{align}
+
+\end_inset
+
+ where 
+\begin_inset Formula $\phi:\mathcal{X}\rightarrow\mathbb{R}$
+\end_inset
+
+ is a 
+\emph on
+warping function
+\emph default
+,
+ and 
+\begin_inset Formula $k_{\text{s}}:\mathbb{R}^{D+1}\times\mathbb{R}^{D+1}\rightarrow\mathbb{R}$
+\end_inset
+
+ is a stationary kernel that we refer to as the 
+\emph on
+canonical kernel
+\emph default
+.
+ A closely-related kernel function is the 
+\emph on
+warp kernel
+\emph default
+,
+ and a Gaussian process prior that utilizes such a kernel is often referred to a 
+\emph on
+warp GP
+\emph default
+ model.
+ It has the form 
+\begin_inset Formula 
+\begin{align}
+k:\mathbb{R}^{D}\times\mathbb{R}^{D} & \rightarrow\mathbb{R},\label{eq:de_kernel_form-1}\\
+\left(x,z\right) & \mapsto k_{\text{B}}\left(\psi\left(x\right),\psi\left(z\right)\right),\nonumber 
+\end{align}
+
+\end_inset
+
+ for some generic map 
+\begin_inset Formula $\psi:\mathbb{R}^{D}\rightarrow\mathbb{R}^{D}$
+\end_inset
+
+ and a 
+\emph on
+base kernel 
+\begin_inset Formula $k_{\text{B}}$
+\end_inset
+
+.
+
+\emph default
+ The idea of introducing non-stationary behavior via the dimensional expansion or the warp kernel have been independently reported by many researchers in literature.
+ Many warp kernel variants were reported in the survey 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "warpGP2001"
+literal "false"
+
+\end_inset
+
+,
+ and appeared in the recent 
+\emph on
+Deep kernel learning
+\emph default
+ (DKL) family of works,
+ where 
+\begin_inset Formula $\psi$
+\end_inset
+
+ is a neural network [].
+ The first DE kernel that we are aware of appeared in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dimensional_expansion_kernel_2012"
+literal "false"
+
+\end_inset
+
+,
+ but was also reported as a 
+\emph on
+variably scaled kernel
+\emph default
+ (VSK) in the works 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "vs_kernel_interpolation_2015,vs_kernels_learning_2021,vs_kernels_persistent_homology_2022"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+The majority of the literature on warp GP or the DE kernel models fits the warp map jointly with the GPR hyperparameters according to some optimization problem.
+ For example,
+ many methods from the survey in [15] constrained the optimization over bijective maps for some spatial statistics application-specific requirements,
+ while others in the survey and the DE work in [16] used a the thin-plate spline objective function to jointly learn the GP hyperparameters and the warp map or warp GP transformation map.
+ The thin-plate spline objective function has roots from Reproducing Kernel Hilbert Space (RKHS) regularization theory,
+ and its relationship to the GPR mean inference equations are discussed in [GPML].
+ The DKL family of works focused on neural network tuning and optimization setup where the GP prior is simply the last layer of the neural network in a supervised learning framework.
+ This implies that a separate group of datasets from the observed dataset is used to construct the warp map and hyperparameters of the GP prior,
+ the fitted warp map adapts to the database instead of adapting to the observed signal.
+ Therefore,
+ the resultant predictive posterior are prone to hallucinations from the particular databases used in this supervised learning framework.
+ Although this approach is sensible for many generative media or pattern classification applications,
+ it is inappropriate for many other real-world applications where hallucinations are unacceptable.
+ The VSK family of works [17-19] are dimensional expansion kernels with warp maps that are constructed from either specific analytical functions,
+ or Naive Bayes classifier probabilities,
+ as their emphasis was on GPR models for classification tasks.
+ For regression tasks,
+ they suggested to use least-squares to fit any generic regression model to the observed data,
+ and use it as the warp map to the DE kernel.
+ 
+\end_layout
+
+\begin_layout Standard
+The warp map construction methods from these existing works do not decouple the fitting of the GPR model parameters from the warp map construction,
+ and the optimization problem is typically high-dimensional and challenging in practice [15,
+ DKL pathology].
+ It is also difficult to interpret how the jointly fitted warp map is actually affecting the predictive posterior when it is combined the DE kernel,
+ so it is difficult to independently tune warp map-specific or GP prior-specific parameters without having to numerically solve the computationally-intensive model inference problem.
+ In this work,
+ we propose a decoupled approach to computing a warp map that works with both grid-based and non-grid-based datasets,
+ and can be understood as an application of Fourier harmonic analysis and filter bank theory over grids and graphs.
+ 
+\lang english
+We focus on low-dimension regression problems in this paper,
+ and use the marginal likelihood for selecting hyperparameters.
+\end_layout
+
 \end_body
 \end_document
